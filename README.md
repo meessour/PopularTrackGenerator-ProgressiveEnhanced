@@ -269,6 +269,15 @@ Voor opmaak van tekst gebruik ik de titel tags: ```<h1>```, ```<h2>```, etc. Voo
 
 Tot slot gebruik ik ```<div>``` tags voor de algemene structuur van de site.
 
+Voor het styling van de site gebruik ik zo veel mogelijk semantische HTML tags. Dit zijn onder andere de ```<fieldset>``` die voor een goed uitziende container zorgen, waarbij CSS niet nodig is. De knoppen om van pagina te wisselen is gewoon een stukje text in een a tag door gebruik te maken van de code **"&#8250;"**. Hier is een voorbeeld te zien van stlying door middel van semantische HTML tags:
+
+<details>
+<summary>Preview semantische HTML tags</summary>
+
+![Image](./resources/images/layer-1-code.png)
+
+</details>
+
 #### Usable
 De website is eenvoudig en focused zich op één specifiek doel. Dit doel is het beantwoorden van een vragenlijst. Andere functies die helpen bij het bereiken van dit doel zijn: Het gemakkelijk inzien van alle (al beantwoorden) vragen die de enquete bevat, het kunnen beatnwoorden/aanpassen van een (gegeven) antwoord en het onthouden waar de gebruiker gebleven was met de vragenlijst.
 
@@ -308,14 +317,14 @@ De volgende features zijn van toepassing op de site:
     * de input type **color** wordt hiervoor gebruikt.
         * Dit wordt niet onderstuend op IE en wordt in plaats daarvan niet gevraagd aan de gebruiker. Als de gebruiker IE gebruikt of geen kleur kiest, is de fallback kleur gewoon wit.
 
-</details>
-
 # Feedback week 2 toevoegingen
 Wat ik heb begrepen van de feedback sessies is dat er alleen gekeken wordt naar de HTML, CSS en JS. Om alles altijd te laten werken ben ik daarom van plan waarschijnlijk grotendeels server-side te doen, maar hier wordt niet naar gekeken. Is dit wel de bedeoeling of resulteert dit in mij die te veel tijd aan onnodige dingen besteed?
 
 Tot nu toe heb ik alleen getest in Chrome, maar check ik wel de hele tijd caniuse.com. Als ik stackoverflow gebruik voor tips, kijk ik altijd in het antwoord/comments of iemand iets over browser-support mentioned. 
 
 Tot slot wou ik initieel veel verschillende features maken en die allemaal laten werken, alleen weet niet zeker of dit de meest slimme manier is om deze opdracht te maken. Dit wou ik eerst doen om een zo hoog mogelijk cijfer te halen, maar weet niet eens zeker of ik dat met deze methode kan bereiken. Mijn vraag is dus ook, wat moet ik doen/waar moet ik op letten om zo'n hoog mogelijk cijfer te halen? Ik hoorde dat ik een hoger cijfer krijg als ik kan uitleggen/aantonen hoe de drie versdchillende lagen differentiëren van elkaar. Hoe kan ik dit verwerken/aantonen in mijn product?
+
+</details>
 
 </details>
 
