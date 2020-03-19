@@ -30,6 +30,7 @@ Na het uitzetten van de afbeeldingen was de titel/omschrijving van de app niet t
 De tweede bevinding is dat de achtergrond van de zoekresultaten niet te zien is omdat het dezelfde kleur is als de achtergrond.
 
 Ook wordt er een iccontje getoond op de locatie waar normaal de foto van de artiest te zien is. 
+**Fix: de achtergrond afbeelding vervangen door linear gradient, en fallback daarop één solid kleur** 
 
 Daarnaast is de outlining van verschillende artiesten in de lijst niet gelijk.
 <details>
@@ -38,12 +39,16 @@ Daarnaast is de outlining van verschillende artiesten in de lijst niet gelijk.
 ![Image](./resources/images/read-me/browser-technologies-findings/image-test-2-search.png)
 </details>
 
+**Fix: de img tag wordt nu ingeladen, check server-side of er uberhaupt een afbeelding aanwezig is, zo niet dan laat ik dit element weg (Dat doet de templating engine)** 
+
 Tot slot is er in de resultaten lijst een te grote afstand tussen de positienumering en tracknaam.
 <details>
 <summary>Zie voorbeeld</summary>
 
 ![Image](./resources/images/read-me/browser-technologies-findings/image-test-3-results.png)
 </details>
+
+**Fix: zelfde principe als de fix hierboven** 
 
 #### Font uitzetten
 Na het uitzetten van de font functioneert de site nog exact hetzelfde. Door de automtische "fallback" font is de text moeilijker te lezen en past het niet bij de site.
@@ -56,6 +61,8 @@ Na het uitzetten van de font functioneert de site nog exact hetzelfde. Door de a
 ![Image](./resources/images/read-me/browser-technologies-findings/no-font-2-result.png)
 </details>
 
+**Fix: font family verandren van sans naar sans-serif** 
+
 #### Kleur uitzetten & kleurenblindheid instellen
 Na het uitzetten van de kleuren is alles op de site nog goed te lezen. Wel is het moeilijk om de track resultaten sectie te onderscheiden van de achtergrond, ze hebben allebei een zwarte kleur nu. 
 
@@ -65,6 +72,8 @@ Na het uitzetten van de kleuren is alles op de site nog goed te lezen. Wel is he
 ![Image](./resources/images/read-me/browser-technologies-findings/no-color-1-result.png)
 
 </details>
+
+**Fix: achtergrond kleur veradnren (linear-gradient en fallback zoals omschreven in Afbeeldingen uitzetten)** 
 
 #### Muis/Trackpad werkt niet
 Het is mogelijk om via TAB en/of SHIFT+TAB te navigeren tussen klikbare elementen op de site. Dit zijn: de zoekbalk, de zoekresultaten en open een track in spotify. Elementen zijn te selecteren door op ENTER te klikken.
@@ -79,6 +88,8 @@ Na het uitzetten van het internet wordt er autmoatisch een foutmedlign gegeven a
 
 </details>
 
+**Fix: een standard fallback toeveogen aan de feedback message zodat er altijd wat getoond wordt. In dit geval iets in de richting van: "Er ging iets mis"** 
+
 #### Javascript (volledig)
 Na het uitzetten van javascirpt worden er geen zoekresultaten en track resultaten weer gegeven. Er wordt ook geen feedback aan de gebruiker gegeven waardoor de grbuiker niet weet wat er aan de hand is. Het kan er voor zorgen dat de gebruiker denkt dat er nog wat geladen moet worden en kijkt vervolgens dan voor een lange periode naar het scherm, hopende dat er nog wat geladen zal worden.
 
@@ -88,6 +99,8 @@ Na het uitzetten van javascirpt worden er geen zoekresultaten en track resultate
 ![Image](./resources/images/read-me/browser-technologies-findings/no-javascript-1-empty-list.png)
 
 </details>
+
+**Fix: Inprincipe wordt alles nu client-side gedaan. De fix hiervoor zou zijn om veel van de logica enz. server-side te doen.** 
 
 #### Cookies niet accepteren
 Na het uitzetten van de cookies worden er geen zoekresultaten en track resultaten weer gegeven. Er wordt een fout melding gegeven.
@@ -99,6 +112,8 @@ Na het uitzetten van de cookies worden er geen zoekresultaten en track resultate
 
 </details>
 
+**Fix: Dit was een bug dat de token altijd uit local storage gehaald moest worden. In plaats daarvan returned de getToken() method nu de token, of vanuit de API of localstorage.** 
+
 #### localStorage doet het niet
 Na het uitzetten van de localStorage worden er geen zoekresultaten en track resultaten weer gegeven. Er wordt een fout melding gegeven.
 
@@ -108,6 +123,8 @@ Na het uitzetten van de localStorage worden er geen zoekresultaten en track resu
 ![Image](./resources/images/read-me/browser-technologies-findings/no-localstorage-1-error.png)
 
 </details>
+
+**Fix: Dit was een bug dat de token altijd uit local storage gehaald moest worden. In plaats daarvan returned de getToken() method nu de token, of vanuit de API of localstorage.** 
 
 ## Tests op verschillende browsers
 
@@ -120,6 +137,8 @@ In microsoft edge werkte alles prima, alleen is er een visuele beperking bij het
 ![Image](./resources/images/read-me/browser-technologies-findings/ms-edge-screen-size.png)
 
 </details>
+
+**Fix: Dit kwam weer door de background image die ik gebruikt had. Met de fix uitgelegd in Afbeeldingen uitzetten verhelpt het ook deze bug**
 
 Daarnaast werd er een waarschuwing in the console getoond: 
 ```SEC7139: [CORS] The origin 'https://meessour.github.io' used the maximum Access-Control-Max-Age value of '604800' as the provided value exceeded this for a cross-origin request to 'https://api.spotify.com/v1/search?q=k&type=artist&limit=5'. ```
@@ -152,6 +171,9 @@ Daarnaast is de outlining van track items niet hetzelfde (Niet het geval op iPad
 
 </details>
 
+**Fix: Dit kwam weer door de background image die ik gebruikt had. Met de fix uitgelegd in Afbeeldingen uitzetten verhelpt het ook deze bug**
+
+
 #### Firefox (Mobile)
 In Firefox op een mobiel werkte alles naar wens. Er was alleen een ongewenste visuele eigenschap tijdens het indrukken van de zoekbalk. De zoekbalk werd dan heel erg transparant, waardoor de placeholder tekst niet meer goed te lezen was
 
@@ -162,6 +184,8 @@ In Firefox op een mobiel werkte alles naar wens. Er was alleen een ongewenste vi
 
 </details>
 
+**Fix: Search balk een achtergrond kleur wit geven**
+
 #### Internet Explorer (Desktop)
 In Internet Explorer werkte eigenlijk helemaal niks. Geen items werden ingeladen, er werd geen user feedback gegeven en de console gaf wat warnings en errors. Visueel zag alles er normaal uit.
 
@@ -171,6 +195,8 @@ In Internet Explorer werkte eigenlijk helemaal niks. Geen items werden ingeladen
 ![Image](./resources/images/read-me/browser-technologies-findings/ie-1-no-result.png)
 
 </details>
+
+**Fix: Veel kan gefixed worden als het server-side gedaan zou worden.**
 
 ## Screenreader
 Voor het uitlezen van de inhoud van de site gebruikt ik (Pericles: Text to Speech Screen Reader): https://chrome.google.com/webstore/detail/pericles-text-to-speech-s/oacindbdmlbdeidohafnfocfckkhjlbg
@@ -183,6 +209,9 @@ De titel/omschrijving van de site werd opgelezen en all track resultaten. De zoe
 ![Image](./resources/images/read-me/browser-technologies-findings/screenreader-result.png)
 
 </details>
+
+**Fix: Alles was wrapped in een a tag. Nu is dat niet meer het geval en wordt de text uitgelezen**
+
 </details>
 
 ### Week 2
@@ -192,7 +221,6 @@ De titel/omschrijving van de site werd opgelezen en all track resultaten. De zoe
 
 #### Use case:
 **Ik wil een enquete kunnen invullen over de minor Web Development, met verschillende antwoord mogelijkheden. Als ik de enquete niet afkrijg, wil ik later weer verder gaan met waar ik ben gebleven.**
-
 
 In deze wireframe/wireflow zie je een schets van hoe de app er uit moet komen te zien.
 
@@ -281,6 +309,13 @@ De volgende features zijn van toepassing op de site:
         * Dit wordt niet onderstuend op IE en wordt in plaats daarvan niet gevraagd aan de gebruiker. Als de gebruiker IE gebruikt of geen kleur kiest, is de fallback kleur gewoon wit.
 
 </details>
+
+# Feedback week 2 toevoegingen
+Wat ik heb begrepen van de feedback sessies is dat er alleen gekeken wordt naar de HTML, CSS en JS. Om alles altijd te laten werken ben ik daarom van plan waarschijnlijk grotendeels server-side te doen, maar hier wordt niet naar gekeken. Is dit wel de bedeoeling of resulteert dit in mij die te veel tijd aan onnodige dingen besteed?
+
+Tot nu toe heb ik alleen getest in Chrome, maar check ik wel de hele tijd caniuse.com. Als ik stackoverflow gebruik voor tips, kijk ik altijd in het antwoord/comments of iemand iets over browser-support mentioned. 
+
+Tot slot wou ik initieel veel verschillende features maken en die allemaal laten werken, alleen weet niet zeker of dit de meest slimme manier is om deze opdracht te maken. Dit wou ik eerst doen om een zo hoog mogelijk cijfer te halen, maar weet niet eens zeker of ik dat met deze methode kan bereiken. Mijn vraag is dus ook, wat moet ik doen/waar moet ik op letten om zo'n hoog mogelijk cijfer te halen? Ik hoorde dat ik een hoger cijfer krijg als ik kan uitleggen/aantonen hoe de drie versdchillende lagen differentiëren van elkaar. Hoe kan ik dit verwerken/aantonen in mijn product?
 
 </details>
 
