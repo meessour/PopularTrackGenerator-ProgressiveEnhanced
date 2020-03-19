@@ -348,6 +348,32 @@ Tot slot wou ik initieel veel verschillende features maken en die allemaal laten
 
 </details>
 
+### Mentions (WIP)
+Source:
+http://mobile-web-app.blogspot.com/2012/03/easy-display-value-for-of-slider-in.html
+
+Hier gebruik ik een output tag om de waarde weer te geven:
+```html
+<input id="rangeinput" type="range" min="0" max="10" value="5" onchange="rangevalue.value=value"></input>
+<output id="rangevalue">5</output>
+```
+
+Anders had ik javasciprt moeten gebruiken om de waarde te kunnen tonen:
+```html
+<input id="rangeinput" type="range" onchange="updateTextInput(this.value);"></input>
+<input type="text" id="textInput" value="">
+
+function updateTextInput(val) {
+    document.getElementById('rangeinput').value=val; 
+}
+```
+
+Om in de HTMl < en > te gebruiken, gebruik ik "&lt;" en "&gt;"
+
+In plaats van een image/icon/vector gebruik ik een html tag voor de pijl iconen.
+Afkomstig van: https://www.alt-codes.net/arrow_alt_codes.php
+HTML code voor pijl: **&#x21FD;** en **&#x21FE;**
+
 </details>
 
 </details>

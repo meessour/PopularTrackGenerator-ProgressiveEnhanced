@@ -15,6 +15,21 @@ html {
     background-attachment: fixed; */
 }
 
+legend {
+    /* Let the text of the question title stay on one line */
+    white-space: nowrap;
+}
+
+textarea {
+    /* this is equal to the font size plus the padding of the textarea */
+    min-height: 20px;
+    min-height: calc(1rem + 4px);
+
+    /* rows="2" if CSS is turned off */
+    height: 36px;
+    height: calc(2rem + 4px);
+}
+
 .all-questions-container {
     display: flex;
     flex-direction: column;
@@ -35,6 +50,11 @@ html {
     white-space: nowrap;
 }
 
+.answer-container label {
+    display: inline-flex;
+    margin: 0;
+}
+
 .question-form-container {
     margin: auto;
     display: flex;
@@ -45,17 +65,27 @@ html {
 }
 
 .question-navigate-button {
-    height: 40px;
-    width: 40px;
+    height: 25px;
+    width: fit-content;
+
+    padding: 4px;
 
     text-decoration: none;
-    display: inline-block;
-    padding: 8px 16px;
 
     border: solid;
-    border-radius: 100%;
+    border-radius: 10px;
     border-width: 1px;
     border-color: black;
+}
+
+/* The arrows inside of the buttons */
+.question-navigate-button h1 {
+    /* applies to the arrows in the buttons for navigating */
+    text-decoration: none;
+    margin: 0px;
+    color: black;
+
+    margin-top: -12px;
 }
 
 .question-answer {
@@ -67,7 +97,7 @@ html {
     text-align: center;
 
     width: 125px;
-    height: 65px;
+    height: fit-content;
 
     margin: 8px;
 
@@ -116,6 +146,13 @@ html {
     left: 45%; */
     z-index: 0;
     top: 8%;
+}
+
+#age {
+    /* fallback */
+    width: 35px;
+    /* The arrows of increasing/decreasing the number is 19px wide */
+    width: calc(1rem + 19px);
 }
 
 .question-wrapper-top {
