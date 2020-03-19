@@ -2,6 +2,32 @@
 
 Demo: https://meessour.github.io/browser-technologies-1920/
 
+<details>
+<summary>How to install</summary>
+
+**Step 1:** Clone project:
+```git
+git clone https://github.com/meessour/browser-technologies-1920.git
+```
+
+**Step 2:** CD to path where project is cloned to:
+```git
+cd C:/../..
+```
+
+**Step 3:** Install packages:
+```git
+npm install
+```
+
+**Step 4:** Start the server:
+```git
+npm start
+```
+
+**Step 5:** Navigate to: http://localhost:3000/
+</details>
+
 ### Week 1
 
 <details>
@@ -291,16 +317,13 @@ De volgende features zijn van toepassing op de site:
         * Wordt ondersteund op alle browsers
     * **animation** wordt gebruikt om de animatie te tonen
          * Wordt ondersteund op alle browsers
-
 * Checken hoe breed het scherm is en op basis daarvan de preview tonen van de andere vragen. Als het scherm te klein is zou dit niet getoond moeten worden.
     * **@media** wordt hiervoor gebruikt
         * Wordt ondersteund op alle browsers
-
 * Een filter toepassen om de andere vragen te blurren.
     * **CSS Filter Effects** wordt hiervoor gebruikt met **blur**
         * Wordt niet ondersteund op IE.    
             * De fallback wordt dan om **Opacity** te gebruiken
-
 * Het kunnen navigeren tussen de vragen.
     * **addEventListener** wordt gebruikt om vershcillende handelingen te detecteren
         * Wordt ondersteund op alle browsers
@@ -312,12 +335,11 @@ De volgende features zijn van toepassing op de site:
         * Wordt ondersteund op alle browsers
     * **click** word gebruikt als listener om te detecteren of een knop is ingeklikt. Dit wordt ook gebruikt als fallback voor als alle andere events hierboven niet werken.
         * Wordt ondersteund op alle browsers
-
 * Om een thema te kiezen, in de vorm van een subtiele achtergrond kleur, wordt er aan de gebruiker gevraagd om deze kleur op te geven.
     * de input type **color** wordt hiervoor gebruikt.
         * Dit wordt niet onderstuend op IE en wordt in plaats daarvan niet gevraagd aan de gebruiker. Als de gebruiker IE gebruikt of geen kleur kiest, is de fallback kleur gewoon wit.
 
-# Feedback week 2 toevoegingen
+### Feedback week 2 toevoegingen
 Wat ik heb begrepen van de feedback sessies is dat er alleen gekeken wordt naar de HTML, CSS en JS. Om alles altijd te laten werken ben ik daarom van plan waarschijnlijk grotendeels server-side te doen, maar hier wordt niet naar gekeken. Is dit wel de bedeoeling of resulteert dit in mij die te veel tijd aan onnodige dingen besteed?
 
 Tot nu toe heb ik alleen getest in Chrome, maar check ik wel de hele tijd caniuse.com. Als ik stackoverflow gebruik voor tips, kijk ik altijd in het antwoord/comments of iemand iets over browser-support mentioned. 
