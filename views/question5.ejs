@@ -12,9 +12,9 @@
                 <div class="question-form-container">
                     <div class="answer-container">
                         <label for="rangeinput">Cijfer:</label>
-                        <input id="rangeinput" name="grade" type="range" min="0" max="10" value="7"
-                               onchange="rangevalue.value=value"></input>
-                        <output id="rangevalue">7</output>
+                        <input id="rangeinput" name="grade" type="range" min="1" max="10"
+                               onchange="rangevalue.value=value" value=<%- grade %>>
+                        <output id="rangevalue"><%- grade %></output>
                         <span>/10</span>
                     </div>
                 </div>

@@ -76,7 +76,20 @@ app.get('/question1/:pin', (req, res) => {
     const pin = req.params.pin
     doesPinExist(pin).then(function (pinExists) {
         if (pinExists) {
-            res.render('question1.ejs');
+            getAnswerFromQuestion(pin, "question1").then(function (answers) {
+                let name = ""
+                let age = ""
+
+                if (answers && answers.name)
+                    name = answers.name;
+
+                if (answers && answers.age)
+                    age = answers.age;
+
+                console.log("resulst quesiotn 1", answers)
+
+                res.render('question1.ejs', {name: name, age: age});
+            });
         } else {
             res.redirect('/');
         }
@@ -86,7 +99,29 @@ app.get('/question2/:pin', (req, res) => {
     const pin = req.params.pin
     doesPinExist(pin).then(function (pinExists) {
         if (pinExists) {
-            res.render('question2.ejs');
+            getAnswerFromQuestion(pin, "question2").then(function (answers) {
+                let checked1 = ""
+                let checked2 = ""
+                let checked3 = ""
+                let checked4 = ""
+
+                if (answers && answers.subject === "Web app from scratch") {
+                    checked1 = "checked";
+                } else if (answers && answers.subject === "CSS to the rescue") {
+                    checked2 = "checked";
+                } else if (answers && answers.subject === "Progressive web apps") {
+                    checked3 = "checked";
+                } else if (answers && answers.subject === "Browser technologies") {
+                    checked4 = "checked";
+                }
+
+                res.render('question2.ejs', {
+                    checked1: checked1,
+                    checked2: checked2,
+                    checked3: checked3,
+                    checked4: checked4
+                });
+            });
         } else {
             res.redirect('/');
         }
@@ -96,7 +131,14 @@ app.get('/question3/:pin', (req, res) => {
     const pin = req.params.pin
     doesPinExist(pin).then(function (pinExists) {
         if (pinExists) {
-            res.render('question3.ejs');
+            getAnswerFromQuestion(pin, "question3").then(function (answers) {
+                let mostUsefull = ""
+
+                if (answers && answers.mostUsefull)
+                    mostUsefull = answers.mostUsefull;
+
+                res.render('question3.ejs', {mostUsefull: mostUsefull});
+            });
         } else {
             res.redirect('/');
         }
@@ -106,34 +148,57 @@ app.get('/question4/:pin', (req, res) => {
     const pin = req.params.pin
     doesPinExist(pin).then(function (pinExists) {
         if (pinExists) {
-            res.render('question4.ejs');
+            getAnswerFromQuestion(pin, "question4").then(function (answers) {
+                let checked1 = ""
+                let checked2 = ""
+                let checked3 = ""
+                let checked4 = ""
+
+                console.log("option:", answers.selectedOptions)
+
+                if (answers && answers.selectedOptions && answers.selectedOptions.includes("1")) {
+                    checked1 = "checked";
+                }
+                if (answers && answers.selectedOptions && answers.selectedOptions.includes("2")) {
+                    checked2 = "checked";
+                }
+                if (answers && answers.selectedOptions && answers.selectedOptions.includes("3")) {
+                    checked3 = "checked";
+                }
+                if (answers && answers.selectedOptions && answers.selectedOptions.includes("4")) {
+                    checked4 = "checked";
+                }
+
+                res.render('question4.ejs', {
+                    checked1: checked1,
+                    checked2: checked2,
+                    checked3: checked3,
+                    checked4: checked4
+                });
+            });
         } else {
             res.redirect('/');
         }
     });
 });
 app.get('/question5/:pin', (req, res) => {
-    const pin = req.params.pin
+    const pin = req.params.pin;
     doesPinExist(pin).then(function (pinExists) {
         if (pinExists) {
-            res.render('question5.ejs');
+            getAnswerFromQuestion(pin, "question5").then(function (answers) {
+                let grade = "0";
+
+                if (answers && answers.grade)
+                    grade = answers.grade;
+
+                res.render('question5.ejs', {grade: grade});
+            });
         } else {
             res.redirect('/');
         }
     });
 });
 
-app.post('/index', (req, res) => {
-    const requestBody = req.body;
-
-    const navigateTo = requestBody.navigateTo;
-
-    const firstName = requestBody.firstname;
-    const age = requestBody.age
-
-    console.log(req.body)
-    res.redirect('/question2');
-});
 app.post('/question1', (req, res) => {
     try {
         const previousPage = ""
@@ -171,7 +236,11 @@ app.post('/question1', (req, res) => {
                         }
                     });
                 } else {
-                    res.redirect(`/${currentPage}/${pin}`);
+                    if (navigate === "previous") {
+                        res.redirect(`/${previousPage}/${pin}`);
+                    } else {
+                        res.redirect(`/${nextPage}/${pin}`);
+                    }
                 }
             }
         });
@@ -190,6 +259,8 @@ app.post('/question2', (req, res) => {
 
         const pin = getPin(req);
         const navigate = requestBody.navigate
+
+        console.log("navigate?", navigate)
 
         doesPinExist(pin).then(function (pinExists) {
             if (!pinExists) {
@@ -218,7 +289,11 @@ app.post('/question2', (req, res) => {
                     });
                     res.redirect(`/${nextPage}/${pin}`);
                 } else {
-                    res.redirect(`/${currentPage}/${pin}`);
+                    if (navigate === "previous") {
+                        res.redirect(`/${previousPage}/${pin}`);
+                    } else {
+                        res.redirect(`/${nextPage}/${pin}`);
+                    }
                 }
             }
         });
@@ -265,7 +340,11 @@ app.post('/question3', (req, res) => {
                     });
                     res.redirect(`/${nextPage}/${pin}`);
                 } else {
-                    res.redirect(`/${currentPage}/${pin}`);
+                    if (navigate === "previous") {
+                        res.redirect(`/${previousPage}/${pin}`);
+                    } else {
+                        res.redirect(`/${nextPage}/${pin}`);
+                    }
                 }
             }
         });
@@ -289,11 +368,15 @@ app.post('/question4', (req, res) => {
             if (!pinExists) {
                 res.redirect('/');
             } else {
-                const selectedOptions = requestBody.answer;
-
-                console.log("selectedOptions", selectedOptions)
+                let selectedOptions = requestBody.answer;
 
                 if (selectedOptions && selectedOptions.length) {
+
+                    if (!Array.isArray(selectedOptions))
+                        selectedOptions = [selectedOptions];
+
+                    console.log("selectedOptions", selectedOptions)
+
                     const answer = {
                         selectedOptions: selectedOptions
                     };
@@ -312,7 +395,11 @@ app.post('/question4', (req, res) => {
                     });
                     res.redirect(`/${nextPage}/${pin}`);
                 } else {
-                    res.redirect(`/${currentPage}/${pin}`);
+                    if (navigate === "previous") {
+                        res.redirect(`/${previousPage}/${pin}`);
+                    } else {
+                        res.redirect(`/${nextPage}/${pin}`);
+                    }
                 }
             }
         });
@@ -340,7 +427,7 @@ app.post('/question5', (req, res) => {
 
                 console.log("grade", requestBody)
 
-                if (grade >= 0) {
+                if (grade > 0) {
                     const answer = {
                         grade: grade
                     };
@@ -359,7 +446,11 @@ app.post('/question5', (req, res) => {
                     });
                     res.redirect(`/${nextPage}/${pin}`);
                 } else {
-                    res.redirect(`/${currentPage}/${pin}`);
+                    if (navigate === "previous") {
+                        res.redirect(`/${previousPage}/${pin}`);
+                    } else {
+                        res.redirect(`/${nextPage}/${pin}`);
+                    }
                 }
             }
         });
@@ -481,6 +572,58 @@ async function saveAnswer(pin, question, answer) {
                         });  // write it back
                     }
                 });
+            }
+        });
+    });
+}
+
+async function getAnswerFromQuestion(pin, question) {
+    pin = pin.toString()
+    return new Promise(function (resolve, reject) {
+        fs.readFile('answers.json', 'utf8', function readFileCallback(err, data) {
+            if (err) {
+                console.log(err);
+                resolve({})
+                return;
+            } else {
+                var obj = JSON.parse(data); //now it an object
+
+                for (let i = 0; i < obj.answers.length; i++) {
+                    if (obj.answers[i] && obj.answers[i].pin === pin) {
+
+                        if (question === "question1") {
+                            const name = obj.answers[i].question1 && obj.answers[i].question1.name ? obj.answers[i].question1.name : "";
+                            const age = obj.answers[i].question1 && obj.answers[i].question1.age ? obj.answers[i].question1.age : "";
+                            resolve({name: name, age: age});
+                            return;
+                        } else if (question === "question2") {
+                            const subject = obj.answers[i].question2 && obj.answers[i].question2.subject ? obj.answers[i].question2.subject : "";
+                            resolve({subject: subject});
+                            return;
+                        } else if (question === "question3") {
+                            const mostUsefull = obj.answers[i].question3 && obj.answers[i].question3.mostUsefull ? obj.answers[i].question3.mostUsefull : ""
+                            resolve({mostUsefull: mostUsefull});
+                            return;
+                        } else if (question === "question4") {
+                            const selectedOptions = obj.answers[i].question4 &&
+                            obj.answers[i].question4.selectedOptions &&
+                            obj.answers[i].question4.selectedOptions.length ?
+                                obj.answers[i].question4.selectedOptions :
+                                "";
+                            resolve({selectedOptions: selectedOptions});
+                            return;
+                        } else if (question === "question5") {
+                            const grade = obj.answers[i].question5 && obj.answers[i].question5.grade ? obj.answers[i].question5.grade : ""
+                            resolve({grade: grade});
+                            return;
+                        } else {
+                            resolve({})
+                            return;
+                        }
+                    }
+                }
+                resolve({})
+                return;
             }
         });
     });
