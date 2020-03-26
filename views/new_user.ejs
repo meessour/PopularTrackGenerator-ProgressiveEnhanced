@@ -1,0 +1,23 @@
+<%- include ("./partials/head.ejs") %>
+
+<div class="all-questions-container">
+    <div class="question-container question-container-top top">
+        <fieldset>
+            <legend>Hier is je pin:</legend>
+            <div class="question-wrapper question-wrapper-top">
+                <div class="question-form-container">
+                    <div class="answer-container">
+                        <label for="pin">Hier is je pin:</label>
+                        <p><strong><%- pin %></strong></p>
+                    </div>
+                </div>
+                <!-- <h1>&#x21FE;</h1> = arrow-riight -->
+                <a href="/question1/<%- pin %>" class="question-navigate-button">
+                    <p>Begin de enquete</p>
+                </a>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<%- include ("./partials/footer.ejs") %>

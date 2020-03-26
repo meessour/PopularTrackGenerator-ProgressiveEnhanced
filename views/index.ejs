@@ -1,0 +1,21 @@
+<%- include ("./partials/head.ejs") %>
+<div class="all-questions-container">
+    <div class="question-container question-container-top top">
+        <form action="/question1" method="POST">
+            <fieldset>
+                <legend>Was je al begonnen met het invullen van de enquete?</legend>
+                <div class="question-wrapper question-wrapper-top">
+                    <div class="question-form-container">
+                        <a href="/new_user" class="question-answer">
+                            Nee, nog niet
+                        </a>
+                        <a href="/login" class="question-answer">
+                            Ja, ik heb een pincode
+                        </a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<%- include ("./partials/footer.ejs") %>

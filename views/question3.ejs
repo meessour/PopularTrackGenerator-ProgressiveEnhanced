@@ -1,0 +1,27 @@
+<%- include ("./partials/head.ejs") %>
+<div class="question-container question-container-top top">
+    <form action="/question3" method="POST">
+        <fieldset>
+            <legend><strong>3 -</strong>Wat was het nuttigste wat je geleerd hebt van dit vak?</legend>
+            <div class="question-wrapper question-wrapper-top">
+                <!-- <h1>&#x21FD;</h1> = arrow-left -->
+                <button type="submit" class="question-navigate-button" name="navigate" value="previous">
+                    <h1>&#x21FD;</h1>
+                </button>
+
+                <div class="question-form-container">
+
+                    <textarea name="mostUsefull" rows="2" cols="50"></textarea>
+
+                </div>
+
+                <!-- <h1>&#x21FE;</h1> = arrow-riight -->
+                <button type="submit" class="question-navigate-button" name="navigate" value="next">
+                    <h1>&#x21FE;</h1>
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<%- include ("./partials/footer.ejs") %>

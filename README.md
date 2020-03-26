@@ -1,7 +1,5 @@
 # Browser Technologies
 
-Demo: https://meessour.github.io/browser-technologies-1920/
-
 <details>
 <summary>How to install</summary>
 
@@ -338,6 +336,11 @@ De volgende features zijn van toepassing op de site:
 * Om een thema te kiezen, in de vorm van een subtiele achtergrond kleur, wordt er aan de gebruiker gevraagd om deze kleur op te geven.
     * de input type **color** wordt hiervoor gebruikt.
         * Dit wordt niet onderstuend op IE en wordt in plaats daarvan niet gevraagd aan de gebruiker. Als de gebruiker IE gebruikt of geen kleur kiest, is de fallback kleur gewoon wit.
+
+Om mijn site zo responsive mogelijk te maken, gebruik ik een ```<meta>``` viewport element in mijn header. Door dit te doen stel ik de paginabreedte in om de schermbreedte van het appraat te volgen. Ook stel ik de initiele zoomniveau in op 100% (niet ingezoomed).
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
 
 ### Feedback week 2 toevoegingen
 Wat ik heb begrepen van de feedback sessies is dat er alleen gekeken wordt naar de HTML, CSS en JS. Om alles altijd te laten werken ben ik daarom van plan waarschijnlijk grotendeels server-side te doen, maar hier wordt niet naar gekeken. Is dit wel de bedeoeling of resulteert dit in mij die te veel tijd aan onnodige dingen besteed?

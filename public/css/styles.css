@@ -77,6 +77,10 @@ textarea {
     border-width: 1px;
     border-color: black;
 }
+/*All paragraph text in the navigate buttons*/
+.question-navigate-button p{
+    margin: 0;
+}
 
 /* The arrows inside of the buttons */
 .question-navigate-button h1 {
@@ -85,7 +89,7 @@ textarea {
     margin: 0px;
     color: black;
 
-    margin-top: -12px;
+    margin-top: -10px;
 }
 
 .question-answer {

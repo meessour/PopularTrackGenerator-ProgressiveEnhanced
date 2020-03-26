@@ -1,0 +1,40 @@
+<%- include ("./partials/head.ejs") %>
+<div class="question-container question-container-top top">
+    <form action="/question2" method="POST">
+        <fieldset>
+            <legend><strong>2 -</strong> Welk vak vond je tot nu toe het leukst?</legend>
+            <div class="question-wrapper question-wrapper-top">
+                <!-- <h1>&#x21FD;</h1> = arrow-left -->
+                <button type="submit" class="question-navigate-button"  name="navigate" value="previous">
+                    <h1>&#x21FD;</h1>
+                </button>
+                <div class="question-form-container">
+
+                    <div class="answer-container">
+                        <input type="radio" id="1" name="subject" value="Web app from scratch">
+                        <label for="1">Web app from scratch</label>
+                    </div>
+                    <div class="answer-container">
+                        <input type="radio" id="2" name="subject" value="CSS to the rescue">
+                        <label for="2">CSS to the rescue </label>
+                    </div>
+                    <div class="answer-container">
+                        <input type="radio" id="3" name="subject" value="Progressive web apps">
+                        <label for="3">Progressive web apps</label>
+                    </div>
+                    <div class="answer-container">
+                        <input type="radio" id="4" name="subject" value="Browser technologies">
+                        <label for="4">Browser technologies</label>
+                    </div>
+
+                </div>
+
+                <!-- <h1>&#x21FE;</h1> = arrow-riight -->
+                <button type="submit" class="question-navigate-button"  name="navigate" value="next">
+                    <h1>&#x21FE;</h1>
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<%- include ("./partials/footer.ejs") %>

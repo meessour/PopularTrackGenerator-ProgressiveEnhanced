@@ -1,0 +1,30 @@
+<%- include ("./partials/head.ejs") %>
+
+<div class="question-container question-container-top top">
+    <form action="/question5" method="POST">
+        <fieldset>
+            <legend><strong>5 - </strong> Welk cijfer zou je deze minor geven?</legend>
+            <div class="question-wrapper question-wrapper-top">
+                <!-- <h1>&#x21FD;</h1> = arrow-left -->
+                <button type="submit" class="question-navigate-button" name="navigate" value="previous">
+                    <h1>&#x21FD;</h1>
+                </button>
+                <div class="question-form-container">
+                    <div class="answer-container">
+                        <label for="rangeinput">Cijfer:</label>
+                        <input id="rangeinput" name="grade" type="range" min="0" max="10" value="7"
+                               onchange="rangevalue.value=value"></input>
+                        <output id="rangevalue">7</output>
+                        <span>/10</span>
+                    </div>
+                </div>
+                <!-- <h1>&#x21FE;</h1> = arrow-riight -->
+                <button type="submit" class="question-navigate-button" name="navigate" value="next">
+                    Rond Enquête af
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<%- include ("./partials/footer.ejs") %>

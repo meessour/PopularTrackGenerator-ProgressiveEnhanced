@@ -1,0 +1,29 @@
+<%- include ("./partials/head.ejs") %>
+
+<div class="all-questions-container">
+    <div class="question-container question-container-top top">
+        <form action="/question1" method="POST">
+            <fieldset>
+                <legend><strong>1 -</strong> Vertel wat over jezelf</legend>
+                <div class="question-wrapper question-wrapper-top">
+                    <div class="question-form-container">
+                        <div class="answer-container">
+                            <label for="firstname">Naam:</label>
+                            <input type="text" id="firstname" name="firstname">
+                        </div>
+                        <div class="answer-container">
+                            <label for="age">Leeftijd:</label>
+                            <input type="number" id="age" name="age">
+                        </div>
+                    </div>
+                    <!-- <h1>&#x21FE;</h1> = arrow-riight -->
+                    <button type="submit" class="question-navigate-button" name="navigate" value="next">
+                        <h1>&#x21FE;</h1>
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<%- include ("./partials/footer.ejs") %>

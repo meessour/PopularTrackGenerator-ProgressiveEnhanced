@@ -1,0 +1,47 @@
+<%- include ("./partials/head.ejs") %>
+
+<div class="question-container question-container-top top">
+    <form action="/question4" method="POST">
+        <fieldset>
+            <legend><strong>4 - </strong>Weet je wat ondersteund wordt door Internet Explorer?</legend>
+            <div class="question-wrapper question-wrapper-top">
+                <!-- <h1>&#x21FD;</h1> = arrow-left -->
+                <button type="submit" class="question-navigate-button" name="navigate" value="previous">
+                    <h1>&#x21FD;</h1>
+                </button>
+
+                <div class="question-form-container">
+
+                    <div class="answer-container">
+                        <input type="checkbox" id="1" name="answer" value="1">
+                        <!-- niet-->
+                        <label for="1">&lt;input type="color"&gt;</label>
+                    </div>
+                    <div class="answer-container">
+                        <input type="checkbox" id="2" name="answer" value="2">
+                        <!-- wel-->
+                        <label for="2">addEventListener </label>
+                    </div>
+                    <div class="answer-container">
+                        <input type="checkbox" id="3" name="answer" value="3">
+                        <!-- niet-->
+                        <label for="3">CSS Filter Effects</label>
+                    </div>
+                    <div class="answer-container">
+                        <input type="checkbox" id="4" name="answer" value="4">
+                        <!-- wel-->
+                        <label for="4">@keyframes</label>
+                    </div>
+
+                </div>
+
+                <!-- <h1>&#x21FE;</h1> = arrow-riight -->
+                <button type="submit" class="question-navigate-button" name="navigate" value="next">
+                    <h1>&#x21FE;</h1>
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<%- include ("./partials/footer.ejs") %>

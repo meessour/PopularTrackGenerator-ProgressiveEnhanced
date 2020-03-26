@@ -1,8 +1,13 @@
+var fs = require('fs');
 const express = require('express');
 const bodyparser = require('body-parser');
+
 const app = express();
 
-app.use(express.static(__dirname));
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+app.use(express.static('public'));
+
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: true}))
 
@@ -10,7 +15,517 @@ var server = app.listen(3000, () => {
     console.log("server is listening on port", server.address().port);
 });
 
+app.get('/', (req, res) => {
+    res.render('index.ejs');
+});
+app.get('/login', (req, res) => {
+    res.render('login.ejs');
+});
+app.post('/login', (req, res) => {
+    const requestBody = req.body;
+    const pin = requestBody.pin
 
+    doesPinExist(pin).then(function (pinExists) {
+        if (pinExists) {
+            navigateToWhatPage(pin).then(function (page) {
+                if (page) {
+                    res.redirect(`/${page}/${pin}`);
+                } else {
+                    res.redirect(`/`);
+                }
+            });
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+app.get('/new_user', (req, res) => {
+    console.log("new user");
+    const newPin = Math.floor(100000 + Math.random() * 900000);
 
-// console.log() console.log()
+    saveAnswer(newPin, undefined, undefined).then(function (success) {
+        if (success) {
+            res.redirect(`/new_user/${newPin}`);
+        } else {
+            console.log("new user FOUT");
 
+            res.redirect(`/`);
+        }
+    });
+
+});
+app.get('/new_user/:pin', (req, res) => {
+    const pin = req.params.pin
+    console.log("new user", pin);
+
+    res.render('new_user.ejs', {pin: pin});
+});
+app.get('/finished/:pin', (req, res) => {
+    const pin = req.params.pin
+    console.log("new user", pin);
+    navigateToWhatPage(pin).then(function (page) {
+        if (page === "finished") {
+            res.render('finished.ejs');
+        } else {
+            res.redirect(`/${page}/${pin}`);
+        }
+    });
+
+});
+app.get('/question1/:pin', (req, res) => {
+    const pin = req.params.pin
+    doesPinExist(pin).then(function (pinExists) {
+        if (pinExists) {
+            res.render('question1.ejs');
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+app.get('/question2/:pin', (req, res) => {
+    const pin = req.params.pin
+    doesPinExist(pin).then(function (pinExists) {
+        if (pinExists) {
+            res.render('question2.ejs');
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+app.get('/question3/:pin', (req, res) => {
+    const pin = req.params.pin
+    doesPinExist(pin).then(function (pinExists) {
+        if (pinExists) {
+            res.render('question3.ejs');
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+app.get('/question4/:pin', (req, res) => {
+    const pin = req.params.pin
+    doesPinExist(pin).then(function (pinExists) {
+        if (pinExists) {
+            res.render('question4.ejs');
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+app.get('/question5/:pin', (req, res) => {
+    const pin = req.params.pin
+    doesPinExist(pin).then(function (pinExists) {
+        if (pinExists) {
+            res.render('question5.ejs');
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+
+app.post('/index', (req, res) => {
+    const requestBody = req.body;
+
+    const navigateTo = requestBody.navigateTo;
+
+    const firstName = requestBody.firstname;
+    const age = requestBody.age
+
+    console.log(req.body)
+    res.redirect('/question2');
+});
+app.post('/question1', (req, res) => {
+    try {
+        const previousPage = ""
+        const currentPage = "question1"
+        const nextPage = "question2"
+
+        const requestBody = req.body;
+
+        const pin = getPin(req);
+        const navigate = requestBody.navigate
+
+        doesPinExist(pin).then(function (pinExists) {
+            if (!pinExists) {
+                res.redirect('/');
+            } else {
+                const firstName = requestBody.firstname;
+                const age = requestBody.age
+
+                if (firstName && firstName.trim().length && age && age.trim().length) {
+                    const answer = {
+                        name: firstName,
+                        age: age
+                    };
+
+                    saveAnswer(pin, currentPage, answer).then(function (success) {
+                        if (success) {
+                            if (navigate === "previous") {
+                                res.redirect(`/${previousPage}/${pin}`);
+                            } else {
+                                res.redirect(`/${nextPage}/${pin}`);
+                            }
+                        } else {
+                            console.log("new user FOUT");
+                            res.redirect(`/`);
+                        }
+                    });
+                } else {
+                    res.redirect(`/${currentPage}/${pin}`);
+                }
+            }
+        });
+    } catch (err) {
+        console.log("something went wrong", req.path)
+        res.redirect('/');
+    }
+});
+app.post('/question2', (req, res) => {
+    try {
+        const previousPage = "question1"
+        const currentPage = "question2"
+        const nextPage = "question3"
+
+        const requestBody = req.body;
+
+        const pin = getPin(req);
+        const navigate = requestBody.navigate
+
+        doesPinExist(pin).then(function (pinExists) {
+            if (!pinExists) {
+                res.redirect('/');
+            } else {
+                const subject = requestBody.subject;
+
+                console.log("subject", subject)
+
+                if (subject && subject.trim().length) {
+                    const answer = {
+                        subject: subject
+                    };
+
+                    saveAnswer(pin, currentPage, answer).then(function (success) {
+                        if (success) {
+                            if (navigate === "previous") {
+                                res.redirect(`/${previousPage}/${pin}`);
+                            } else {
+                                res.redirect(`/${nextPage}/${pin}`);
+                            }
+                        } else {
+                            console.log("new user FOUT");
+                            res.redirect(`/`);
+                        }
+                    });
+                    res.redirect(`/${nextPage}/${pin}`);
+                } else {
+                    res.redirect(`/${currentPage}/${pin}`);
+                }
+            }
+        });
+    } catch (err) {
+        console.log("something went wrong", req.path)
+        res.redirect('/');
+    }
+});
+app.post('/question3', (req, res) => {
+    try {
+        const previousPage = "question2"
+        const currentPage = "question3"
+        const nextPage = "question4"
+
+        const requestBody = req.body;
+
+        const pin = getPin(req);
+        const navigate = requestBody.navigate
+
+        doesPinExist(pin).then(function (pinExists) {
+            if (!pinExists) {
+                res.redirect('/');
+            } else {
+                const mostUsefull = requestBody.mostUsefull;
+
+                console.log("mostUsefull", mostUsefull)
+
+                if (mostUsefull && mostUsefull.trim().length) {
+                    const answer = {
+                        mostUsefull: mostUsefull
+                    };
+
+                    saveAnswer(pin, currentPage, answer).then(function (success) {
+                        if (success) {
+                            if (navigate === "previous") {
+                                res.redirect(`/${previousPage}/${pin}`);
+                            } else {
+                                res.redirect(`/${nextPage}/${pin}`);
+                            }
+                        } else {
+                            console.log("new user FOUT");
+                            res.redirect(`/`);
+                        }
+                    });
+                    res.redirect(`/${nextPage}/${pin}`);
+                } else {
+                    res.redirect(`/${currentPage}/${pin}`);
+                }
+            }
+        });
+    } catch (err) {
+        console.log("something went wrong", req.path)
+        res.redirect('/');
+    }
+});
+app.post('/question4', (req, res) => {
+    try {
+        const previousPage = "question3"
+        const currentPage = "question4"
+        const nextPage = "question5"
+
+        const requestBody = req.body;
+
+        const pin = getPin(req);
+        const navigate = requestBody.navigate
+
+        doesPinExist(pin).then(function (pinExists) {
+            if (!pinExists) {
+                res.redirect('/');
+            } else {
+                const selectedOptions = requestBody.answer;
+
+                console.log("selectedOptions", selectedOptions)
+
+                if (selectedOptions && selectedOptions.length) {
+                    const answer = {
+                        selectedOptions: selectedOptions
+                    };
+
+                    saveAnswer(pin, currentPage, answer).then(function (success) {
+                        if (success) {
+                            if (navigate === "previous") {
+                                res.redirect(`/${previousPage}/${pin}`);
+                            } else {
+                                res.redirect(`/${nextPage}/${pin}`);
+                            }
+                        } else {
+                            console.log("new user FOUT");
+                            res.redirect(`/`);
+                        }
+                    });
+                    res.redirect(`/${nextPage}/${pin}`);
+                } else {
+                    res.redirect(`/${currentPage}/${pin}`);
+                }
+            }
+        });
+    } catch (err) {
+        console.log("something went wrong", req.path)
+        res.redirect('/');
+    }
+});
+app.post('/question5', (req, res) => {
+    try {
+        const previousPage = "question4"
+        const currentPage = "question5"
+        const nextPage = "finished"
+
+        const requestBody = req.body;
+
+        const pin = getPin(req);
+        const navigate = requestBody.navigate
+
+        doesPinExist(pin).then(function (pinExists) {
+            if (!pinExists) {
+                res.redirect('/');
+            } else {
+                const grade = requestBody.grade;
+
+                console.log("grade", requestBody)
+
+                if (grade >= 0) {
+                    const answer = {
+                        grade: grade
+                    };
+
+                    saveAnswer(pin, currentPage, answer).then(function (success) {
+                        if (success) {
+                            if (navigate === "previous") {
+                                res.redirect(`/${previousPage}/${pin}`);
+                            } else {
+                                res.redirect(`/${nextPage}/${pin}`);
+                            }
+                        } else {
+                            console.log("new user FOUT");
+                            res.redirect(`/`);
+                        }
+                    });
+                    res.redirect(`/${nextPage}/${pin}`);
+                } else {
+                    res.redirect(`/${currentPage}/${pin}`);
+                }
+            }
+        });
+    } catch (err) {
+        console.log("something went wrong", req.path)
+        res.redirect('/');
+    }
+});
+
+function getPin(req) {
+    let requestSegments = req.rawHeaders[27].split('/');
+    let pin = requestSegments[requestSegments.length - 1];
+
+    console.log("pin", pin)
+
+    return pin
+}
+
+async function doesPinExist(pin) {
+    pin = pin.toString()
+    return new Promise(function (resolve, reject) {
+        fs.readFile('answers.json', 'utf8', function readFileCallback(err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                var obj = JSON.parse(data); //now it an object
+
+                for (let i = 0; i < obj.answers.length; i++) {
+                    if (obj.answers[i] && obj.answers[i].pin === pin) {
+                        console.log("Pin exists!")
+
+                        resolve(true)
+                        return;
+                    }
+                }
+                console.log("Pin does not exist")
+                resolve(false)
+                return;
+            }
+        });
+    });
+}
+
+async function saveAnswer(pin, question, answer) {
+    console.log("saveAnswer called!")
+    pin = pin.toString()
+    return new Promise(function (resolve, reject) {
+        fs.readFile('answers.json', 'utf8', function readFileCallback(err, data) {
+            if (err) {
+                console.log(err);
+                return;
+            } else {
+                var obj = JSON.parse(data); //now it an object
+                console.log("obj before:", obj);
+
+                doesPinExist(pin).then(function (pinExists) {
+                    if (pinExists) {
+                        console.log("saveAnswer called! iwht pin existy")
+                        for (let i = 0; i < obj.answers.length; i++) {
+                            console.log("obj.answers[i].pin", obj.answers[i].pin, pin)
+                            if (obj.answers[i] && obj.answers[i].pin === pin) {
+                                console.log("Yes, match!")
+                                console.log("###########")
+                                if (question === "question1") {
+                                    obj.answers[i].question1 = answer;
+                                } else if (question === "question2") {
+                                    obj.answers[i].question2 = answer;
+                                } else if (question === "question3") {
+                                    obj.answers[i].question3 = answer;
+                                } else if (question === "question4") {
+                                    obj.answers[i].question4 = answer;
+                                } else if (question === "question5") {
+                                    obj.answers[i].question5 = answer;
+                                }
+                                console.log("obj after!", obj)
+                                console.log("obj after!", obj.answers[i])
+                                var json = JSON.stringify(obj); //convert it back to json
+                                fs.writeFile('answers.json', json, 'utf8', function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                        resolve(false)
+                                        return;
+                                    }
+                                    console.log("The file was saved!");
+                                    resolve(true)
+                                    return;
+                                });
+                            }
+                        }
+                    } else {
+                        console.log("saveAnswer called! no pin yet")
+
+                        obj.answers.push({pin: pin}); //add some data
+
+                        if (question === "question1") {
+                            obj.answers[obj.answers.length - 1].question1 = answer;
+                        } else if (question === "question2") {
+                            obj.answers[obj.answers.length - 1].question2 = answer;
+                        } else if (question === "question3") {
+                            obj.answers[obj.answers.length - 1].question3 = answer;
+                        } else if (question === "question4") {
+                            obj.answers[obj.answers.length - 1].question4 = answer;
+                        } else if (question === "question5") {
+                            obj.answers[obj.answers.length - 1].question5 = answer;
+                        }
+
+                        console.log("New entry!", obj.answers[obj.answers.length - 1])
+
+                        var json = JSON.stringify(obj); //convert it back to json
+                        fs.writeFile('answers.json', json, 'utf8', function (err) {
+                            if (err) {
+                                return console.log(err);
+                                resolve(false)
+                                return;
+                            }
+                            console.log("The file was saved!");
+                            resolve(true)
+                            return;
+                        });  // write it back
+                    }
+                });
+            }
+        });
+    });
+}
+
+async function navigateToWhatPage(pin) {
+    pin = pin.toString()
+    return new Promise(function (resolve, reject) {
+        fs.readFile('answers.json', 'utf8', function readFileCallback(err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                var obj = JSON.parse(data); //now it an object
+
+                for (let i = 0; i < obj.answers.length; i++) {
+                    if (obj.answers[i] && obj.answers[i].pin === pin) {
+
+                        if (!obj.answers[i].question1 || !obj.answers[i].question1.name || !obj.answers[i].question1.age) {
+                            resolve("question1")
+                            return;
+                        }
+                        if (!obj.answers[i].question2 || !obj.answers[i].question2.subject) {
+                            resolve("question2")
+                            return;
+                        }
+                        if (!obj.answers[i].question3 || !obj.answers[i].question3.mostUsefull) {
+                            resolve("question3")
+                            return;
+                        }
+                        if (!obj.answers[i].question4 || !obj.answers[i].question4.selectedOptions || !obj.answers[i].question4.selectedOptions.length > 0) {
+                            resolve("question4")
+                            return;
+                        }
+                        if (!obj.answers[i].question5 || !obj.answers[i].question5.grade) {
+                            resolve("question5")
+                            return;
+                        }
+
+                        resolve("finished")
+                        return;
+                    }
+                }
+                resolve("new_user")
+                return;
+            }
+        });
+    });
+}
