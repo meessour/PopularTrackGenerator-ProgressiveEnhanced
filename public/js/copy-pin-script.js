@@ -42,7 +42,6 @@ function copyTextToClipboard() {
         }
     }
 }
-
 function copyTextToClipboardStandard() {
     navigator.clipboard.writeText(text).then(function () {
         console.log('(1) Async: Copying to clipboard was successful!');
@@ -51,6 +50,7 @@ function copyTextToClipboardStandard() {
     });
 }
 
+
 document.addEventListener('copy', function (e) {
     // First check if the ASYNC approach is available.
     // I check this here and not the final fallback because a copy event can happen without the user pressing a button
@@ -58,7 +58,7 @@ document.addEventListener('copy', function (e) {
         copyTextToClipboardStandard(text);
     } else if (typeof ClipboardEvent === "function") {
         try {
-            e.clipboardData.setData('text/plain', 'Current time is ');
+            e.clipboardData.setData('text/plain', text);
             // default behaviour is to copy any selected text
             e.preventDefault();
             console.log('(2) copied!');

@@ -686,7 +686,205 @@ Opacity was een alternatieve optie die beter zou zijn voor performance (bron: ht
 
 ### Hoe wordt tekst gekopieerd?
 
-in de `init()` check 
+in de `init()` zet ik de text variabele van de pin. De pin is het laatste deel van de url, vandaar deze one-liner:
 ```javascript
-text = window.location.pathname.split("/").pop();
+try {
+        text = window.location.pathname.split("/").pop();
+
+        document.getElementById("copyButton").style.visibility = "";
+    } catch (e) {
+        console.log("cannot set text to copy");
+    }
 ```
+Als dit niet werkt wordt het opgevangen in een catch en blijft de button onzichtbaar.
+
+Als de gebruiker op de kopieer text knop klikt, wordt deze event aangeeropen:
+
+```javascript
+document.getElementById("copyButton").onclick = function () {
+    copyTextToClipboard();
+};
+```
+
+Vervolgens wordt deze functie aangeroepen:
+
+```javascript
+function copyTextToClipboard() {
+    if (navigator.clipboard) {
+        copyTextToClipboardStandard();
+    } else {
+        if (typeof ClipboardEvent !== "function") {
+            setCopyInputField();
+        }
+
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('(3) Copying text command was ' + msg);
+        } catch (err) {
+            console.log('(3) Oops, unable to copy');
+        }
+
+        if (typeof ClipboardEvent !== "function") {
+            removeCopyInputField();
+        }
+    }
+}
+```
+
+Eerst check ik of Async Clipboard API werkt door `if (navigator.clipboard)`. Als dat het geval is roep ik deze functie aan:
+
+```javascript
+function copyTextToClipboardStandard() {
+    navigator.clipboard.writeText(text).then(function () {
+        console.log('(1) Async: Copying to clipboard was successful!');
+    }, function (err) {
+        console.error('(1) Async: Could not copy text: ', err);
+    });
+}
+```
+
+`navigator.clipboard.writeText(text).` vervangt de klembord waarde van de gebruiker. Als dit niet mogelijk is wordt deze code uitgevoerd:
+```javascript
+        if (typeof ClipboardEvent !== "function") {
+            setCopyInputField();
+        }
+
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('(3) Copying text command was ' + msg);
+        } catch (err) {
+            console.log('(3) Oops, unable to copy');
+        }
+
+        if (typeof ClipboardEvent !== "function") {
+            removeCopyInputField();
+        }
+```
+
+Met `typeof ClipboardEvent !== "function"` check ik of het nodig is om de laatste fallback te gebruiken, hier kom ik later op terug.
+
+Met `var successful = document.execCommand('copy');` voer ik een commando uit genaamd "copy". Dit zorgt er voor dat `document.addEventListener('copy'), ` aangeroepen wordt. Dit wordt dan uitgevoerd.
+
+```javascript
+document.addEventListener('copy', function (e) {
+    if (navigator.clipboard) {
+        copyTextToClipboardStandard(text);
+    } else if (typeof ClipboardEvent === "function") {
+        try {
+            e.clipboardData.setData('text/plain', 'Current time is ');
+            
+            e.preventDefault();  // default behaviour is to copy any selected text
+
+            console.log('(2) copied!');
+        } catch (err) {
+            console.log('(2) Oops, unable to copy');
+        }
+    }
+});
+```
+
+Eerst check ik of Async Clipboard API uitgevoerd kan worden door middel van:`if (navigator.clipboard)`. Deze event kan namelijk ook aangroepen worden door CRTL+C te gebruiken of via het rechtermuisknop menu te kopieren. Als dit niet ondersteund wordt check ik of ClipboardEvent ondersteund wordt: `(typeof ClipboardEvent === "function")`. Ik check hier of ClipboardEvent wordt gezien als een `function` of als `undefined`. Als dit aanwezig is wordt de volgende code uitgevoerd:
+
+```javascript
+e.clipboardData.setData('text/plain', text);
+            
+e.preventDefault();  // default behaviour is to copy any selected text
+```
+
+`e.clipboardData.setData` "hijacked" het kopieer event en vervangt het met zijn eigen waarde. Om er voor te zorgen dat de tekst die de gebruiker geselcteerd heeft neit gekopieerd wordt, gebruik ik: `e.preventDefault();`. 
+
+Als `ClipboardEvent` undefined is dan wordt de laatste fallback gebruikt. De laatste fallback werkt op een unieke manier en kan gezien worden als een "hack". Als blijkt dat de laatste fallback nodig is om te gebruiken wordt `setCopyInputField();` aangeroepen:
+
+```javascript
+if (typeof ClipboardEvent !== "function") {
+    setCopyInputField();
+}
+```
+
+Hier is de code (bron: https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript/30810322#30810322):
+
+```javascript
+function setCopyInputField() {
+    textArea = document.createElement("textarea");
+
+    // *** This styling is an extra step which is likely not required. ***
+    //
+    // Why is it here? To ensure:
+    // 1. the element is able to have focus and selection.
+    // 2. if element was to flash render it has minimal visual impact.
+    // 3. less flakyness with selection and copying which **might** occur if
+    //    the textarea element is not visible.
+    //
+    // The likelihood is the element won't even render, not even a
+    // flash, so some of these are just precautions. However in
+    // Internet Explorer the element is visible whilst the popup
+    // box asking the user for permission for the web page to
+    // copy to the clipboard.
+    //
+
+    // Place in top-left corner of screen regardless of scroll position.
+    textArea.style.position = 'fixed';
+    textArea.style.top = 0;
+    textArea.style.left = 0;
+
+    // Ensure it has a small width and height. Setting to 1px / 1em
+    // doesn't work as this gives a negative w/h on some browsers.
+    textArea.style.width = '2em';
+    textArea.style.height = '2em';
+
+    // We don't need padding, reducing the size if it does flash render.
+    textArea.style.padding = 0;
+
+    // Clean up any borders.
+    textArea.style.border = 'none';
+    textArea.style.outline = 'none';
+    textArea.style.boxShadow = 'none';
+
+    // Avoid flash of white box if rendered for any reason.
+    textArea.style.background = 'transparent';
+
+    textArea.value = text;
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+}
+```
+
+Kort samengevat, wat hier gebeurd is het volgende. Ik creeer een tekstveld en verstop deze zodat de gebruiker hem niet ziet. Vervolgens zet ik de pin-code waarde in het tekstveld en laat de gebruikers focus op deze tekstveld zetten. Vervolgens wordt de kopieer command uitgevoerd om de geselecteerde tekstveld inhoud te kopieren:
+
+```javascript
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('(3) Copying text command was ' + msg);
+        } catch (err) {
+            console.log('(3) Oops, unable to copy');
+        }
+```
+
+Tot slot wordt `removeCopyInputField();` aangeroepen om de tekstveld te laten verdwijnen met `document.body.removeChild(textArea);`:
+
+```javascript
+if (typeof ClipboardEvent !== "function") {
+    removeCopyInputField();
+}
+```
+
+```javascript
+function removeCopyInputField() {
+    document.body.removeChild(textArea);
+}
+```
+
+Er is nu geen spoor meer van het tekstveld te bekennen. Dit allemaal wordt in een hele korte periode uitgevoerd, dus de gebruiker ziet het tekstveld nooit.
+
+Op IE wordt er soms een pop-up getoond om toestemming te vragen aan de gebruiker. Als dit gebeurd kan je het tekstveld wel zien, zoals in deze afbeelding:
+
+<details>
+<summary>Internet Explorer pop-up</summary>
+
+![Image](./public/images/read-me/copy-support/popup-apple.png)
+</details>
