@@ -1,5 +1,8 @@
 <%- include ("./partials/head.ejs") %>
 
+<!--Script used for copying the pin-->
+<script defer src="/js/copy-pin-script.js"></script>
+
 <div class="all-questions-container">
     <div class="question-container question-container-top top">
         <fieldset>
@@ -10,8 +13,10 @@
                         <label for="pin">Hier is je pin:</label>
                         <p><strong><%- pin %></strong></p>
                     </div>
+                    <a id="copyButton" class="question-navigate-button" style="visibility:hidden">
+                        <p>Copy Pin</p>
+                    </a>
                 </div>
-                <!-- <h1>&#x21FE;</h1> = arrow-riight -->
                 <a href="/question1/<%- pin %>" class="question-navigate-button">
                     <p>Begin de enquete</p>
                 </a>

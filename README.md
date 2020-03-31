@@ -380,3 +380,313 @@ HTML code voor pijl: **&#x21FD;** en **&#x21FE;**
 </details>
 
 </details>
+
+# Kopieer knop
+## Main events
+### Eerste keuze (Async Clipboard API)
+
+Voordelen:
+*	Tekst kan gekopieerd worden direct van een variabele waarde.
+*	Werkt asynchroon in javascript, dus het hindert niet andere processen.
+*	Sinds Chrome 66 kunnen pagina's in actieve tabbladen zonder toestemming te geven, kopiëren naar het klembord van de gebruiker.
+
+Nadelen:
+*	Heeft hele slechte browser support (zie afbeelding hieronder). Maar Meer dan 28% van de gebruikers kan dit niet gebruiken
+*	Kan alleen gebruikt worden als de pagina wordt aangeboden via HTTPS. 
+
+Werkt volgens caniuse.com. Dezelfde data is te zien op de developer.mozilla.org/
+
+<details>
+<summary>CaniUse.com resultaten</summary>
+
+![Image](./public/images/read-me/copy-support/first-choice.png)
+</details>
+
+<details>
+<summary>developer.mozilla.org resultaten</summary>
+
+![Image](./public/images/read-me/copy-support/first-choice-mozilla.png)
+</details>
+
+Om te dubbel checkte of dit werkte heb ik het getest op Safari - Desktop, IE11 en iOS 13.3 – Safari. Uit deze tests bleek dit niet te werken op IE11 en Safari – Desktop. Wel werkte deze functionaliteit op Safari iOS 13.3 (iPhone 8) en Safari iOS 13.4 (iPad). Bewijzen:
+
+<details>
+<summary>Safari iOS 13.4 (iPad)</summary>
+
+![Image](./public/images/read-me/copy-support/apple-proof-1.jpg)
+</details>
+<details>
+<summary>Safari iOS 13.3 (iPhone 8)</summary>
+
+![Image](./public/images/read-me/copy-support/apple-proof-2.jpg)
+</details>
+<details>
+<summary>Safari - Desktop</summary>
+
+![Image](./public/images/read-me/copy-support/apple-proof-3.jpg)
+</details>
+
+Dit zou betekenen dat het percentage tussen de 9.3% - 12.9% hoger komen te liggen. Het percentage zou dus liggen tussen de 81.1% en 84.7%.
+
+### Tweede keuze (Document API + DataTransfer API)
+
+Voordelen: 
+*	Tekst kan gekopieerd worden direct van een variabele waarde.
+*	Sinds Chrome 66 kunnen pagina's in actieve tabbladen zonder toestemming te geven, kopiëren naar het klembord van de gebruiker.
+*	Werkt op grotendeels van de browsers
+
+Nadelen:
+*	De code nodig om dit uit te voeren werkt synchroon. Dit betekent dat het de javascript op de pagina stopt tot de taak voltooid is.
+
+Hieronder meer uitleg over deze aanpak en hoe het gebruikt wordt.
+
+#### Benodigde API's
+
+Er kan ook gebruik gemaakt worden van de Document API, door middel van een event listener:
+Via Document API: execCommand kan er een kopieer evenement uitgevoerd worden (Dit kan gebruikt bij het klikken van een knop):
+
+```javascript
+document.execCommand('copy');
+```
+
+document.execCommand('copy');
+Dit copy event kan ook aangeroepen worden door CRLT+C te klikken of vanuit het context menu. Hierdoor hoeft de gebruiker alleen een toetsenbord te gebruiken en/of alleen de muis. Dit zorgt er voor dat de site beter usable is.
+Daarnaast wordt er gebruik gemaakt van Document API: copy event met daarin de DataTransfer API: setData:
+
+```javascript
+document.addEventListener('copy', (event) => {
+    event.clipboardData.setData('text/plain', 'Desired Value');
+    event.preventDefault(); // default  ehavior is to copy any selected text});
+});
+```
+
+Hier nog even alle API’s op een rijtje:  
+*	Document API: execCommand 
+*	Document API: copy event
+*	DataTransfer API: setData
+
+Hieronder ga ik verder in op deze API’s
+
+#### Wat wordt waar ondersteund
+
+Gelukkig wordt de execCommand bijna overall support en kan gebruikt worden door meer dan 95% van de gebruikers.
+
+<details>
+<summary>Document API: execCommand op CanIuse.com</summary>
+
+![Image](./public/images/read-me/copy-support/research-1.png)
+</details>
+
+De copy event wordt helaas door minder browsers ondersteund. Wel ligt het percentage hoger dan bij de Clipboard API (71%). Daarnaast werkt de copy event op meer browsers, zoals: Safari (vergeleken met Clipboard API). Als het niet aan de DataTransfer API lag, was dit de betere alternatief geweest. Hieronder een overzicht van de DataTransfer API.
+
+<details>
+<summary>Document API: copy event op CanIuse.com</summary>
+
+![Image](./public/images/read-me/copy-support/research-2.png)
+</details>
+
+De setData command van de DataTransfer API wordt door veel browsers onderstuend, maar is toch maar te gebruiken bij de helft van de gebruiekrs.
+
+<details>
+<summary>DataTransfer API: setData op CanIuse.com</summary>
+
+![Image](./public/images/read-me/copy-support/research-3.png)
+</details>
+
+Dit komt omdat veel van de gebruikers oudere versies van chrome en firefox gebruiken, waar samen maarliefst een kwart van de grbuikers gebruik van maken.
+
+<details>
+<summary>DataTransfer API: setData staafdiagram op CanIuse.com</summary>
+
+![Image](./public/images/read-me/copy-support/research-4.png)
+</details>
+
+#### Verificatie
+
+Ik vond het een beetje gek dus checkte ik dubbel op de developer.mozilla.org/ website, en daar bleek het op alle versies van chrome en firefox te werken. 
+
+<details>
+<summary>DataTransfer API: setData op developer.mozilla.org</summary>
+
+![Image](./public/images/read-me/copy-support/verification-1.png)
+</details>
+
+Dus ik ging dat uit testen. Ik gebruik hiervoor een website genaamd browserstack.com om op oudere browsers te testen. In deze test gebruikte ik chrome verise 50. Ik ging naar een stackoverflow post waar een code snippet aanwezig was met de DataTransfer API (https://stackoverflow.com/a/36380702/11119707). In de snippet kun je op een knop klikken en vervolgens wordt de tijd geklopieerd naar je klembord. Bij de snippet is er een veld waar je je inhoud handmatig kan plakken. Na dat ik plakte zag ik de huidige tijd in het tekstvak. 
+
+<details>
+<summary>Chrome 50 werkend</summary>
+
+![Image](./public/images/read-me/copy-support/verification-2.png)
+</details>
+
+Dit betekent dat deze fucntioaliteit werkt op minimaal versie 50 van chrome. Volgens https://caniuse.com/usage-table wordt chrome het meest gebruikt bij gebruiekrs vanaf versie 63. Als het op versie 50 van chrome werkt datn werkt het bij grotendeels van de chrome grbiukers. Volgens https://caniuse.com/usage-table gebruiken de meeste gebruikers van firefox minimaal versie 72. Na dezelfde test te hebben uitgeoverd bleek het in deze versie ook te werken (zie afbeelding hierodnder).
+
+<details>
+<summary>Firefox 72 werkend</summary>
+
+![Image](./public/images/read-me/copy-support/verfication-3.png)
+</details>
+
+Aangezien caniuse.com niet complete/foute data had probeerde ik deze code snippet uit te voeren op IOS Safari. Volgens caniuse.com en developers.mozilla was het onbekend of Document API: copy event werkte op IOS safari.
+
+<details>
+<summary>Document API: copy op CanIuse.com en developers.mozilla</summary>
+
+![Image](./public/images/read-me/copy-support/verification-4.png)
+</details>
+
+DataTransfer API: setData zou niet eens werken op IOS-safari volgens dezelfde sites (zie afbeeldign hieronder).
+
+<details>
+<summary>DataTransfer API: setData op CanIuse.com en developers.mozilla</summary>
+
+![Image](./public/images/read-me/copy-support/verification-5.png)
+</details>
+
+Ik heb het op een iPhone 8 met IOS 13.3 getest en op een iPad met IOS 13.4, beide op safari, en het blijkt dus wel te werken! 
+
+<details>
+<summary>iPhone test</summary>
+
+![Image](./public/images/read-me/copy-support/verification-6.jpg)
+</details>
+
+<details>
+<summary>iPad test</summary>
+
+![Image](./public/images/read-me/copy-support/verification-7.jpg)
+</details>
+
+Ik moest wel een paar keer klikken op de knop om het te laten werken, maar deed het uiteindelijk wel. Wel werkte het 100% van de tijd nadat ik vanuit het context menu op “Copy” klikte en via de drie-finger-pinch-gesture (nieuw sinds de nieuwste versie van iOS waarmee je tekst kan kopiëren). Direct nadat ik op “Copy” klikte, veranderde mijn klembord naar de huidige tijd (wat het voorbeeld van de code snippet gebruikt).
+
+<details>
+<summary>iOS menu</summary>
+
+![Image](./public/images/read-me/copy-support/verification-8.jpg)
+</details>
+
+#### verwerking bevindingen
+
+De code snippet die ik gebruikt heb voor het testen (https://stackoverflow.com/a/36380702/11119707) heb ik uitgevoerd op firefox versie 72 en IOS 13.3 op safari. Op allebei deze browsers/toestellen werkte deze code snippet.
+
+<details>
+<summary>Code snippet - Stackoverflow</summary>
+
+![Image](./public/images/read-me/copy-support/verwerk-1.png)
+</details>
+
+Dat betkent dat de voglende features ook allemaal werken op deze platformen, aangezien deze allemaal voorkwamen in de code snippet:
+*	Document API: execCommand 
+*	Document API: copy event
+*	DataTransfer API: setData
+
+##### Document API: copy event 
+
+Wat betekent dat voor Document API: copy event? Dit waren de resultaten volgens caniuse.com en developers.mozilla:
+
+<details>
+<summary>Document API: copy op CanIuse.com en developers.mozilla</summary>
+
+![Image](./public/images/read-me/copy-support/verification-4.png)
+</details>
+
+Het perecentage van de hoeveel gebruikers die dit kunnen gebruiken was 73.5%. Aangezien het werkt op Firefox 72 zou het betekenen dat dit percentage met 3.5% zou stijgen. Als het op alle versies van firefox zou werken zou dit percentage stijgen met 4.4%. Door de support op IOS-safari 13.3 stijgt deze warde met 9.3%. Als het zou werken met oudere versies van IOS, zou deze waarde zelfs s tijgen met 12.9% (bron: https://caniuse.com/usage-table). Hier nog even alles op een rijtje:
+
+| Platform | Percentage |
+| --- | --- |
+| Firefox  | 3.5% - 4.4% |
+| iOS -Safari | 9.3% - 12.9% | 
+|  |   | 
+| Totaal: | 12.8% - 17.3% | 
+
+Door deze bevindingen ligt het percentage nu minimaal 12.8% - 17.3% hoger. Het nieuwe percentage zou dus tussen de 86.3% en 90.8%. Dat is een stuk hoger dan 73.5%. 
+
+##### DataTransfer API: setData
+
+Wat betekent dat voor DataTransfer API: setData? Dit waren de resultaten volgens caniuse.com:
+
+<details>
+<summary>Document API: copy op CanIuse.com en developers.mozilla</summary>
+
+![Image](./public/images/read-me/copy-support/verification-5.png)
+</details>
+
+Het perecentage van de hoeveel gebruikers die dit kunnen gebruiken was 51.4%, erg laag dus. Aangezien het werkt op Firefox 72 zou het betekenen dat dit percentage met 3.5% zou stijgen. Als het op alle versies van firefox zou werken zou dit percentage stijgen met 4.4%. Door de support op IOS-safari 13.3 stijgt deze warde met 9.3%. Als het zou werken met oudere versies van IOS, zou deze waarde zelfs s tijgen met 12.9%. Ook werkte dit in versie 50 van chrome, dit bekent dat het percentage met maar liefst 19.5% tot 20.2% zou stijgen. (bron: https://caniuse.com/usage-table). Hier nog even alles op een rijtje:
+
+| Platform | Percentage |
+| --- | --- |
+| Firefox  | 3.5% - 4.4% |
+| iOS -Safari | 9.3% - 12.9% | 
+| Chrome | 19.5% - 20.2% | 
+|  |   | 
+| Totaal: | 32.3% - 37.5% | 
+
+Door deze bevindingen ligt het percentage nu minimaal 32.3% - 37.5% hoger. Het nieuwe percentage zou dus tussen de 83.7% en 88.9%. Dat is een stuk hoger dan 51.4%.
+
+Aangezien de percentages van DataTransfer API: setData (83.7% en 88.9%) lager liggen dan die van Document API: copy (86.3% en 90.8%.), gebruiken we die percentages. 
+
+Dus de Document API + DataTransfer API aanpak heeft een bereik tussen de 83.7% en 88.9%. Het heeft support voor alle browsers naast IE en Safari – Desktop.
+
+### Best keuze
+
+Door de voorafgaande hoofdstukken kunnen we een conclusie trekken over de aanpakken: Document API + DataTransfer API en Async Clipboard API. Hier nog even een klein overzicht van de resultaten:
+
+| Aanpak: | Document API + DataTransfer API | Async Clipboard API |
+| --- | --- | --- |
+| Bereikbaarheid (in %) | 83.7% en 88.9%. | 81.1% en 84.7%. |
+| Werkt niet op: | IE  | Safari + IE |
+
+Uit het onderzoek blijkt dat de Document API + DataTransfer API aanpak een groter bereik heeft en werkt op Safari. Dus op het eerste gezicht lijkt die aanpak beter te zijn. Toch werkt de Async Clipboard API aanpak asyncroon. Dit houdt in dat andere javascirpt code niet gehinderd/gepauzeert wordt zodra dit uitgevoerd wordt. Dit is wel het geval bij de Document API + DataTransfer API aanpak. Daarom ben ik tot de conclusie gekomen om de Async Clipboard API aanpak als eerste te gebruiken en de Document API + DataTransfer API aanpak te gebruiken als fallback hierop.
+
+## Fall back
+
+document.execCommand('copy'). (Covarage: 94%)
+
+Voordelen: 
+*	Wordt door veel browsers ondersteund. Maarliefst 94% globaal van de gebruikers zou dit kunnen gebruiken
+*	Goed om als fallback te gebruiken
+
+Nadelen:
+*	De code nodig om dit uit te voeren werkt synchroon. Dit betekent dat het de javascript op de pagina stopt tot de taak voltooid is.
+*	De tekst moet gelezen worden vanuit de DOM en vervolgens op het klembord gezet worden. Er moet in dit geval een input aanwezig zijn, daarop gefocues worden en vervoglens de copy event uitvoeren. 
+*	Kan een prompt geven (Alleen IE doet dit, zie bron) die vraagt voor toestemming aan de gebruiker (zie afbeelding)
+
+<details>
+<summary>Caniuse.com resultaten</summary>
+
+![Image](./public/images/read-me/copy-support/fallback-caniuse.png)
+</details>
+<details>
+<summary>Internet Explorer pop-up</summary>
+
+![Image](./public/images/read-me/copy-support/popup-apple.png)
+</details>
+
+## Hoe werkt het?
+
+### Hoe maak ik de knop zichtbaar?
+Knop verberg ik origineel met `style="visibility:hidden`:
+
+```html
+<a id="copyButton" class="question-navigate-button" style="visibility:hidden">
+                        <p>Copy Pin</p>
+                    </a>
+```
+
+Als javasciprt aanweig is haal ik de inline visibility property weg. Dit is het eerste wat uitgevoerd wordt vanwege de `init()`. De knop is werkt alleen als javascirpt aanwezig is, dus op deze manier is hij ook alleen zichtbaar als JS werkt.
+
+```javascript
+init();
+
+function init() {
+    document.getElementById("copyButton").style.visibility = "";
+}
+```
+Opacity was een alternatieve optie die beter zou zijn voor performance (bron: https://www.sitepoint.com/hide-elements-in-css/). Alleen de knop is nog wel klikbaar als `opacity: 0` is. Een andere optie was om `dispaly:hidden` te doen, alleen browser suppport was daar niet zo goed voor. Uiteindelijk heb ik `visibility:hidden` gekozen omdat het een excellente browser support heeft en redelijke goede performance score.
+
+### Hoe wordt tekst gekopieerd?
+
+in de `init()` check 
+```javascript
+text = window.location.pathname.split("/").pop();
+```
