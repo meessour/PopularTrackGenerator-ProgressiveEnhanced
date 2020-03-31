@@ -201,14 +201,20 @@ app.get('/question5/:pin', (req, res) => {
 
 app.post('/question1', (req, res) => {
     try {
-        const previousPage = ""
-        const currentPage = "question1"
-        const nextPage = "question2"
+        const previousPage = "";
+        const currentPage = "question1";
+        const nextPage = "question2";
 
         const requestBody = req.body;
 
         const pin = getPin(req);
-        const navigate = requestBody.navigate
+
+        const navigate = req.body.navigate;
+        if (navigate === "previous") {
+            res.redirect(`/${previousPage}/${pin}`);
+        } else {
+            res.redirect(`/${nextPage}/${pin}`);
+        }
 
         doesPinExist(pin).then(function (pinExists) {
             if (!pinExists) {

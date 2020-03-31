@@ -48,7 +48,7 @@ Na het uitzetten van de afbeeldingen was de titel/omschrijving van de app niet t
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/image-test-1-index.png)
+![Image](./public/images/read-me/browser-technologies-findings/image-test-1-index.png)
 </details>
 
 De tweede bevinding is dat de achtergrond van de zoekresultaten niet te zien is omdat het dezelfde kleur is als de achtergrond.
@@ -60,7 +60,7 @@ Daarnaast is de outlining van verschillende artiesten in de lijst niet gelijk.
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/image-test-2-search.png)
+![Image](./public/images/read-me/browser-technologies-findings/image-test-2-search.png)
 </details>
 
 **Fix: de img tag wordt nu ingeladen, check server-side of er uberhaupt een afbeelding aanwezig is, zo niet dan laat ik dit element weg (Dat doet de templating engine)** 
@@ -69,7 +69,7 @@ Tot slot is er in de resultaten lijst een te grote afstand tussen de positienume
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/image-test-3-results.png)
+![Image](./public/images/read-me/browser-technologies-findings/image-test-3-results.png)
 </details>
 
 **Fix: zelfde principe als de fix hierboven** 
@@ -80,9 +80,9 @@ Na het uitzetten van de font functioneert de site nog exact hetzelfde. Door de a
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/no-font-1-commented-line.png)
+![Image](./public/images/read-me/browser-technologies-findings/no-font-1-commented-line.png)
 
-![Image](./resources/images/read-me/browser-technologies-findings/no-font-2-result.png)
+![Image](./public/images/read-me/browser-technologies-findings/no-font-2-result.png)
 </details>
 
 **Fix: font family verandren van sans naar sans-serif** 
@@ -93,7 +93,7 @@ Na het uitzetten van de kleuren is alles op de site nog goed te lezen. Wel is he
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/no-color-1-result.png)
+![Image](./public/images/read-me/browser-technologies-findings/no-color-1-result.png)
 
 </details>
 
@@ -108,7 +108,7 @@ Na het uitzetten van het internet wordt er autmoatisch een foutmedlign gegeven a
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/no-internet-1-user-feedback.png)
+![Image](./public/images/read-me/browser-technologies-findings/no-internet-1-user-feedback.png)
 
 </details>
 
@@ -120,7 +120,7 @@ Na het uitzetten van javascirpt worden er geen zoekresultaten en track resultate
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/no-javascript-1-empty-list.png)
+![Image](./public/images/read-me/browser-technologies-findings/no-javascript-1-empty-list.png)
 
 </details>
 
@@ -132,7 +132,7 @@ Na het uitzetten van de cookies worden er geen zoekresultaten en track resultate
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/no-cookies-1-error.png)
+![Image](./public/images/read-me/browser-technologies-findings/no-cookies-1-error.png)
 
 </details>
 
@@ -144,7 +144,7 @@ Na het uitzetten van de localStorage worden er geen zoekresultaten en track resu
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/no-localstorage-1-error.png)
+![Image](./public/images/read-me/browser-technologies-findings/no-localstorage-1-error.png)
 
 </details>
 
@@ -158,7 +158,7 @@ In microsoft edge werkte alles prima, alleen is er een visuele beperking bij het
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/ms-edge-screen-size.png)
+![Image](./public/images/read-me/browser-technologies-findings/ms-edge-screen-size.png)
 
 </details>
 
@@ -176,13 +176,13 @@ In Safari op een iPhone/iPad en Chrome op een iPad, waren er enkele visuele prob
 <details>
 <summary>Zie voorbeeld iPhone Safari</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/safari-mobile-1-search-results.jpeg)
+![Image](./public/images/read-me/browser-technologies-findings/safari-mobile-1-search-results.jpg)
 </details>
 
 <details>
 <summary>Zie voorbeeld iPad Chrome</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/chrome-ipad-1-search-result.png)
+![Image](./public/images/read-me/browser-technologies-findings/chrome-ipad-1-search-result.png)
 
 </details>
 
@@ -191,7 +191,7 @@ Daarnaast is de outlining van track items niet hetzelfde (Niet het geval op iPad
 <details>
 <summary>Zie voorbeeld iPhone Safari</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/safari-mobile-2-result-spacing.jpeg)
+![Image](./public/images/read-me/browser-technologies-findings/safari-mobile-2-result-spacing.jpg)
 
 </details>
 
@@ -204,7 +204,7 @@ In Firefox op een mobiel werkte alles naar wens. Er was alleen een ongewenste vi
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/firefox-mobile-1-searchbar.jpeg)
+![Image](./public/images/read-me/browser-technologies-findings/firefox-mobile-1-searchbar.jpg)
 
 </details>
 
@@ -216,7 +216,7 @@ In Internet Explorer werkte eigenlijk helemaal niks. Geen items werden ingeladen
 <details>
 <summary>Zie voorbeeld</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/ie-1-no-result.png)
+![Image](./public/images/read-me/browser-technologies-findings/ie-1-no-result.png)
 
 </details>
 
@@ -230,7 +230,7 @@ De titel/omschrijving van de site werd opgelezen en all track resultaten. De zoe
 <details>
 <summary>Zie wat niet werd voorgelezen</summary>
 
-![Image](./resources/images/read-me/browser-technologies-findings/screenreader-result.png)
+![Image](./public/images/read-me/browser-technologies-findings/screenreader-result.png)
 
 </details>
 
@@ -251,11 +251,11 @@ In deze wireframe/wireflow zie je een schets van hoe de app er uit moet komen te
 <details>
 <summary>Wireframe</summary>
 
-![Image](./resources/images/wireframe.png)
+![Image](./public/images/wireframe.png)
 
 </details>
 
-De gebruiker kan vragen beantwoorden op verschillende manieren. Deze manieren zijn bijvoorbeeld meerkeuze vragen, radio-button vragen, vragen waar een antwoord uitgeschreven moet worden, ect. De gebruiker ziet een preview van de vorige 2 vragen en/of volgende 2 vragen, mits het scherm groot genoeg is. De gebruiker kan op de knoppen klikken om naar de vorige of volgende vraag te komen. Als de gebruiker een touchscreen heeft, dan kan er ook geswiped worden om tussen de vragen te wisselen. Ook is er de mogelijkheid om met pijltoetsjes heen en weer te gaan.
+De gebruiker kan vragen beantwoorden op verschillende manieren. Deze manieren zijn: meerkeuze vragen, radio-button vragen, vragen waar een antwoord uitgeschreven moet worden en een getal als antwoord. De gebruiker kan op de knoppen klikken om naar de vorige of volgende vraag te komen. Als de gebruiker een touchscreen heeft, dan kan er ook geswiped worden om tussen de vragen te wisselen. Ook is er de mogelijkheid om met pijltoetsjes heen en weer te gaan.
 
 #### Functional/reliable
 De core-funtionaliteit van de site is om voor gebruikers een enquete in te vullen. Dit wordt bereiekt doormiddel van verschillende input manieren. De gebruiker kan navigeren door de enquete om de andere vragen te kunnen zien. Tot slot kan de gebruiker de enquete inleveren en de antwoorden aanpassen.
@@ -298,7 +298,7 @@ Voor het styling van de site gebruik ik zo veel mogelijk semantische HTML tags. 
 <details>
 <summary>Preview semantische HTML tags</summary>
 
-![Image](./resources/images/layer-1-code.png)
+![Image](./public/images/layer-1-code.png)
 
 </details>
 
