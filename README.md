@@ -888,3 +888,160 @@ Op IE wordt er soms een pop-up getoond om toestemming te vragen aan de gebruiker
 
 ![Image](./public/images/read-me/copy-support/popup-apple.png)
 </details>
+
+# Pleasurable
+
+Ik gebruik `calc(1rem + 19px);` hier om uit te rekenen hoe breed de age input moet zijn.
+
+```css
+#age {
+    /* fallback */
+    width: 35px;
+    /* The arrows of increasing/decreasing the number is 19px wide */
+    width: calc(1rem + 19px);
+}
+```
+
+1 rem blijkt in dit geval perfect te passen voor 2 getallen. De 19px is de ruimte die de twee pijltoetsjes in beslag neemt. Ik maak ruimte voor 2 getallen zodat er precies genoeg ruimte is voor leeftijden van 0 - 99. Zie het invoerveld hieronder:
+
+<details>
+<summary>Age input</summary>
+
+![Image](./public/images/read-me/Pleasurable/age.png)
+</details>
+
+Als fallback gebruik ik een standaard `width: 35px`, volgens Chrome-dev tools was dit de breedte:
+
+<details>
+<summary>Age input breedte</summary>
+
+![Image](./public/images/read-me/Pleasurable/age-width.png)
+</details>
+
+Hetzelfde principe geldt voor te tekstvelden:
+
+```css
+.textareaInput {
+    /* this is equal to the font size plus the padding of the textarea */
+    min-height: 20px;
+    min-height: calc(1rem + 4px);
+
+    /* rows="2" if CSS is turned off */
+    height: 36px;
+    height: calc(2rem + 4px);
+}
+```
+
+Hier bereken ik wat de minimale hoogte is voor 1 regel en 2 regels.
+
+Soms wordt `display: flex;` niet ondersteund, als fallback gebruik ik hiervoor `display: table-cell;` (bron: https://stackoverflow.com/questions/24371408/flexbox-alternative-for-ie9). Als flex niet aanwezig is wordt automatisch `display: table-cell;` gebruikt. Dit omdat table-cell ongeveer hetzlfde fungeert, alleen kan er niet gebruik worden gemaakt van bijvoorbeeld: `justify-content`.
+
+```css
+.question-wrapper {
+    display: table-cell;
+    display: flex;
+
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    height: fit-content;
+}
+```
+Om de site er mooi uit te laten zien gebruik ik een linear-gradient. Om een linear gradient te maken gebruik ik: `linear-gradient(0deg, #C5796D, #DBE6F6);`. Dit wordt ondersteund door IE 10+, Edge, Firefox 16+, Chrome 26+, Opera 12+ en Safari 7+. 
+
+Als Dit niet werkt heb ik het volgende als fallback gebruikt: `-webkit-linear-gradient(90deg, #C5796D, #DBE6F6);`. Dit werkt op website die op WebKit of Blink gebasseerd zijn (bron: https://developer.mozilla.org/en-US/docs/Web/CSS/WebKit_Extensions). Deze fallback werkt voor Chrome 10-25 en Safari 5.1-6.
+
+Voor nog oudere browsers heb ik een fallback naar een standaard achtergrond: `background: #DBE6F6;`.
+
+Gradient van: https://uigradients.com/#Jaipur
+
+```css
+body,
+html {
+    background: #DBE6F6;
+    background: -webkit-linear-gradient(90deg, #C5796D, #DBE6F6);
+    background: linear-gradient(0deg, #C5796D, #DBE6F6);
+}
+```
+
+Om de gebruikerservaring te verbeteren heb ik een fadein animatie geimplementeert. Via `@supports` check ik of animaties ondersteuend worden. Als `animation` of een fallback onderstuend wordt, zoals `-webkit-animation`, dan voeg ik een fadein animatie toe aan de container waar de vraag in staat (bron: https://stackoverflow.com/questions/11679567/using-css-for-a-fade-in-effect-on-page-load):
+
+```css
+@supports ((animation: fadein) or
+          (-o-animation: fadein) or
+          (-moz-animation: fadein) or
+          (-webkit-animation: fadein)) {
+    .question-container {
+        -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+        -moz-animation: fadein 1s; /* Firefox < 16 */
+        -o-animation: fadein 1s; /* Opera < 12.1 */
+        animation: fadein 1s;
+    }
+}
+```
+
+Vervolgens roept het de volgende keyframes aan (bron: https://stackoverflow.com/questions/11679567/using-css-for-a-fade-in-effect-on-page-load):
+```css
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+```
+
+`-ms-animation` wordt niet herkend door `@supports`, dus moest ik een alternatief gebruiken. Ik gebruik `@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)` om te checken of de huidige browser IE10 of IE11 zijn (bron: https://stackoverflow.com/questions/18907131/detecting-ie11-using-css-capability-feature-detection). `-ms-high-contrast: none` en `-ms-high-contrast: active` komen beide, samen, alleen voor in IE10 en IE11. Aangezien `animation` alleen werkt in deze versies van IE, heb ik deze detectie methode gekozen:
+
+```css
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .question-container {
+        -ms-animation: fadein 1s; /* Internet Explorer */
+    }
+}
+```
+
+Vervolgens roept het de volgende keyframe aan (bron: https://stackoverflow.com/questions/11679567/using-css-for-a-fade-in-effect-on-page-load):
+
+```css
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+```
+
+# Alle lagen
+
+<details>
+<summary>Alleen laag 1</summary>
+
+![Image](./public/images/read-me/Pleasurable/laag-1.png)
+</details>
+
+<details>
+<summary>Laag 1 + 2</summary>
+
+![Image](./public/images/read-me/Pleasurable/laag-2.png)
+</details>
+
+<details>
+<summary>Alle lagen</summary>
+
+![Image](./public/images/read-me/Pleasurable/laag-3.png)
+</details>

@@ -1,9 +1,9 @@
 <%- include ("./partials/head.ejs") %>
-<div class="question-container question-container-top top">
+<div class="question-container question-container-top">
     <form action="/question3" method="POST">
         <fieldset>
             <legend><strong>3 -</strong>Wat was het nuttigste wat je geleerd hebt van dit vak?</legend>
-            <div class="question-wrapper question-wrapper-top">
+            <div class="question-wrapper">
                 <!-- <h1>&#x21FD;</h1> = arrow-left -->
                 <button type="submit" class="question-navigate-button" name="navigate" value="previous">
                     <h1>&#x21FD;</h1>
@@ -11,7 +11,7 @@
 
                 <div class="question-form-container">
 
-                    <textarea name="mostUsefull" rows="2" cols="50"><%- mostUsefull %></textarea>
+                    <textarea class="textareaInput" name="mostUsefull" rows="2"><%- mostUsefull %></textarea>
 
                 </div>
 
