@@ -1,3 +1,4 @@
+var http = require('http');
 var fs = require('fs');
 const express = require('express');
 const bodyparser = require('body-parser');
@@ -9,10 +10,17 @@ app.set('views', 'views');
 app.use(express.static('public'));
 
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended: true}))
+app.use(bodyparser.urlencoded({extended: true}));
 
-var server = app.listen(3000, () => {
-    console.log("server is listening on port", server.address().port);
+// Enforce https when on Heroku
+if (app.get("env") === "production") {
+    app.use(enforce.HTTPS({trustProtoHeader: true}));
+}
+
+const port = process.env.PORT || 8000;
+
+http.createServer(app).listen(port, () => {
+    console.log("Server is listening on port", port);
 });
 
 app.get('/', (req, res) => {
