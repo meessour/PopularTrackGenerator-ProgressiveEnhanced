@@ -1,5 +1,6 @@
-var http = require('http');
-var fs = require('fs');
+const http = require('http');
+const fs = require('fs');
+const enforce = require('enforce');
 const express = require('express');
 const bodyparser = require('body-parser');
 
