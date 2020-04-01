@@ -467,7 +467,7 @@ app.post('/question5', (req, res) => {
 });
 
 function getPin(req) {
-    let requestSegments = req.rawHeaders[27].split('/');
+    let requestSegments = req.headers.referer.split('/');
     let pin = requestSegments[requestSegments.length - 1];
 
     console.log("pin", pin)
