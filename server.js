@@ -1,6 +1,6 @@
 const http = require('http');
 const fs = require('fs');
-const enforce = require('enforce');
+const enforce = require('express-sslify');
 const express = require('express');
 const bodyparser = require('body-parser');
 
