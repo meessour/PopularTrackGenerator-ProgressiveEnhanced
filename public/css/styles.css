@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: Verdana, Geneva, sans-serif;
 }
 
 body,
@@ -9,11 +9,16 @@ html {
     width: 100%;
     margin: 0;
     /* fallback for old browsers */
-    background: #DBE6F6;
+    background: #3a195c;
     /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(90deg, #C5796D, #DBE6F6);
+    background: -webkit-linear-gradient(90deg, #41295a, #2f0743);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(0deg, #C5796D, #DBE6F6);
+    background: linear-gradient(0deg, #41295a, #2F0743);
+    color: white;
+}
+
+fieldset{
+    white-space: nowrap;
 }
 
 /*https://stackoverflow.com/questions/11679567/using-css-for-a-fade-in-effect-on-page-load*/
@@ -86,6 +91,17 @@ html {
     }
 }
 
+fieldset {
+    border-radius: 12px;
+}
+
+.centered {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+
 .textareaInput {
     /* this is equal to the font size plus the padding of the textarea */
     min-height: 20px;
@@ -102,12 +118,12 @@ html {
 
     flex-direction: column;
     width: 100%;
-    height: 285px;
+    height: 100%;
 }
 
 .question-container {
     position: relative;
-    margin: 8px;
+    margin: 32px 8px;
     max-width: 500px;
 }
 
@@ -118,7 +134,7 @@ html {
 }
 
 .question-form-container {
-    margin: auto;
+    margin: 16px auto;
 
     display: table-cell;
     display: flex;
@@ -130,50 +146,67 @@ html {
 }
 
 .question-navigate-button {
-    height: 25px;
+    height: fit-content;
     width: fit-content;
 
     padding: 4px;
 
+    color: white;
+    background-color: transparent;
+
+    font-weight: bold;
+
     text-decoration: none;
 
-    border: solid;
-    border-radius: 10px;
-    border-width: 1px;
-    border-color: black;
+    border-radius: 12px;
+    border: 1px solid white;
+}
+
+.question-navigate-button:hover{
+    cursor: pointer;
 }
 
 /*All paragraph text in the navigate buttons*/
 .question-navigate-button p {
-    margin: 0;
+    margin: 0 4px;
+}
+
+#rangevalue{
+    margin-left: 8px;
 }
 
 /* The arrows inside of the buttons */
-.question-navigate-button h1 {
+.question-navigate-button h3 {
     /* applies to the arrows in the buttons for navigating */
     text-decoration: none;
-    margin: 0px;
-    color: black;
+    margin: 0 4px;
 
-    margin-top: -10px;
 }
 
 .question-answer {
-    color: black;
+    color: white;
 
     text-decoration: none;
     display: inline-block;
     padding: 8px 16px;
     text-align: center;
 
-    width: 125px;
     height: fit-content;
 
     margin: 8px;
 
-    border-style: solid;
-    border-color: black;
-    border-width: 1px;
+    white-space: nowrap;
+
+    border: 1px solid white;
+    border-radius: 12px;
+}
+
+.align-left{
+    text-align: left;
+}
+
+.nowrap {
+    flex-flow: nowrap;
 }
 
 .question-wrapper {

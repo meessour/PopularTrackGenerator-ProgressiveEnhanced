@@ -1,12 +1,12 @@
 <%- include ("./partials/head.ejs") %>
-<div class="question-container question-container-top">
+<div class="question-container question-container-top centered">
     <form action="/question3" method="POST">
         <fieldset>
             <legend><strong>3 -</strong>Wat was het nuttigste wat je geleerd hebt van dit vak?</legend>
             <div class="question-wrapper">
                 <!-- <h1>&#x21FD;</h1> = arrow-left -->
                 <button type="submit" class="question-navigate-button" name="navigate" value="previous">
-                    <h1>&#x21FD;</h1>
+                    <h3>Previous</h3>
                 </button>
 
                 <div class="question-form-container">
@@ -17,7 +17,7 @@
 
                 <!-- <h1>&#x21FE;</h1> = arrow-riight -->
                 <button type="submit" class="question-navigate-button" name="navigate" value="next">
-                    <h1>&#x21FE;</h1>
+                    <h3>Next</h3>
                 </button>
             </div>
         </fieldset>

@@ -1,24 +1,24 @@
 <%- include ("./partials/head.ejs") %>
 
 <div class="all-questions-container">
-    <div class="question-container question-container-top">
+    <div class="question-container question-container-top centered">
         <form action="/question1" method="POST">
             <fieldset>
                 <legend><strong>1 -</strong> Vertel wat over jezelf</legend>
                 <div class="question-wrapper">
                     <div class="question-form-container">
-                        <div class="answer-container">
+                        <div class="answer-container align-left">
                             <label for="firstname">Naam:</label>
                             <input type="text" id="firstname" name="firstname" value=<%- name %>>
                         </div>
-                        <div class="answer-container">
+                        <div class="answer-container align-left">
                             <label for="age">Leeftijd:</label>
                             <input type="number" id="age" name="age" value=<%- age %>>
                         </div>
                     </div>
                     <!-- <h1>&#x21FE;</h1> = arrow-riight -->
                     <button type="submit" class="question-navigate-button" name="navigate" value="next">
-                        <h1>&#x21FE;</h1>
+                        <h3>Next</h3>
                     </button>
                 </div>
             </fieldset>

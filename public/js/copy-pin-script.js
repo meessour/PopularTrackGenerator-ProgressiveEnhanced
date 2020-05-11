@@ -50,7 +50,6 @@ function copyTextToClipboardStandard() {
     });
 }
 
-
 document.addEventListener('copy', function (e) {
     // First check if the ASYNC approach is available.
     // I check this here and not the final fallback because a copy event can happen without the user pressing a button
