@@ -1084,11 +1084,23 @@ Vervolgens roept het de volgende keyframe aan (bron: https://stackoverflow.com/q
 ## Conclusie/samenvatting
 > Student kan de core functionaliteit van een use case doorgronden
 
+Zie [Use case](#use-case) voor de use case, en [Functional/reliable](#functionalreliable) hoe dit te bereiken valt.
+
 > Toegankelijkheid: De user experience is goed
+
+In [Tests op verschillende browsers](#tests-op-verschillende-browsers) voer ik tests uit op Edge, firefox, chrome, safari en IE via Desktop, android mobiel, iPhone en iPad om te controleren of het overal visueel er goed uit ziet en bruikbaar is. In het hoofdstuk [Pleasurable](#pleasurable) behandel ik verschillende punten hoe ik de User Experience goed optimaal maken.
 
 > Readme: In de beschrijving van het project staat een probleemdefinitie, hoe het probleem is opgelost en een uitleg van de code.
 
+In [Beperkingen van client](#beperkingen-van-client) ga ik over verschillende problemen die voorkomen en hoe die opgelost zijn inclusief uitleg. Daarbij is er met een afbeelding en code uitgelegd wat het probleem is en hoe het opgelost is.
+
+Bij [Kopieer knop](#kopieer-knop) behandel ik een ingewikkelde feature die in verschillende situaties diverse problemen veroorzaakt. Daarbij staat uitgelegd hoe deze worden opgevangen en afgehandeld. Elk probleem is beschreven met oplossing.
+
 > Student kan uitleggen wat Progressive enhancement is.
+
+Ik begon met het opzetten van de HTMl en zo veel mogelijk gebruik te maken van semantische HTML (forms, fieldsets bijvoorbeeld). 
+
+[Alle lagen](#alle-lagen) 
 
 > Student laat zien hoe Progressive Enhancement toe te passen in Web Development
 
