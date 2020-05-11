@@ -282,8 +282,6 @@ De titel/omschrijving van de site werd opgelezen en all track resultaten. De zoe
 
 ## Week 2
 
-<details>
-<summary>Zie bevindingen van week 2</summary>
 
 ### Use case
 **Ik wil een enquete kunnen invullen over de minor Web Development, met verschillende antwoord mogelijkheden. Als ik de enquete niet afkrijg, wil ik later weer verder gaan met waar ik ben gebleven.**
@@ -417,8 +415,6 @@ Om in de HTMl < en > te gebruiken, gebruik ik "&lt;" en "&gt;"
 In plaats van een image/icon/vector gebruik ik een html tag voor de pijl iconen.
 Afkomstig van: https://www.alt-codes.net/arrow_alt_codes.php
 HTML code voor pijl: **&#x21FD;** en **&#x21FE;**
-
-</details>
 
 ## Kopieer knop
 ### Main events
@@ -1086,3 +1082,17 @@ Vervolgens roept het de volgende keyframe aan (bron: https://stackoverflow.com/q
 </details>
 
 ## Conclusie/samenvatting
+> Student kan de core functionaliteit van een use case doorgronden
+
+> Toegankelijkheid: De user experience is goed
+
+> Readme: In de beschrijving van het project staat een probleemdefinitie, hoe het probleem is opgelost en een uitleg van de code.
+
+> Student kan uitleggen wat Progressive enhancement is.
+
+> Student laat zien hoe Progressive Enhancement toe te passen in Web Development
+
+> Student kan uitleggen wat Feature detection is
+
+> Student laat zien hoe Feature Detection kan worden toegepast in Web Development
+ 

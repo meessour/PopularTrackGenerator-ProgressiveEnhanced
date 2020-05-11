@@ -1,21 +1,19 @@
 <%- include ("./partials/head.ejs") %>
 
-<div class="question-container question-container-top">
+<div class="question-container question-container-top centered">
     <form action="/question5" method="POST">
         <fieldset>
             <legend><strong>5 - </strong> Welk cijfer zou je deze minor geven?</legend>
             <div class="question-wrapper">
                 <!-- <h1>&#x21FD;</h1> = arrow-left -->
                 <button type="submit" class="question-navigate-button" name="navigate" value="previous">
-                    <h1>&#x21FD;</h1>
+                    <h3>Previous</h3>
                 </button>
                 <div class="question-form-container">
                     <div class="answer-container">
                         <label for="rangeinput">Cijfer:</label>
-                        <input id="rangeinput" name="grade" type="range" min="1" max="10"
+                        <input id="rangeinput" name="grade" type="number" min="1" max="10"
                                onchange="rangevalue.value=value" value=<%- grade %>>
-                        <output id="rangevalue"><%- grade %></output>
-                        <span>/10</span>
                     </div>
                 </div>
                 <!-- <h1>&#x21FE;</h1> = arrow-riight -->
