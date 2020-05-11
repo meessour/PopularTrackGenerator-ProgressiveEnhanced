@@ -1,8 +1,53 @@
 # Browser Technologies
 [Live Demo](https://web-dev-enquete.herokuapp.com/)
 
-<details>
-<summary>How to install</summary>
+## Table of contents
+
+1. [How to install](#How-to-install)     
+2. [Week 1](#week-1)     
+    - [Beperkingen van client](#beperkingen-van-client)   
+        - [Afbeeldingen uitzetten](#afbeeldingen-uitzetten)           
+        - [Font uitzetten](#font-uitzetten)    
+        - [Kleur uitzetten & kleurenblindheid instellen](#kleur-uitzetten--kleurenblindheid-instellen)    
+        - [Muis/Trackpad werkt niet](#muistrackpad-werkt-niet)    
+        - [Breedband internet uitzetten](#breedband-internet-uitzetten)    
+        - [Javascript (volledig)](#javascript-volledig)    
+        - [Cookies niet accepteren](#cookies-niet-accepteren)    
+        - [localStorage doet het niet](#localstorage-doet-het-niet)    
+    - [Tests op verschillende browsers](#tests-op-verschillende-browsers)          
+        - [Microsoft edge (Desktop)](#microsoft-edge-desktop)    
+        - [Firefox (Desktop)](#firefox-desktop)    
+        - [Safari (Mobile/iPad) & Chrome (iPad)](#safari-mobileipad--chrome-ipad)    
+        - [Firefox (Mobile)](#firefox-mobile)    
+        - [Internet Explorer (Desktop)](#internet-explorer-desktop)   
+    - [Screenreader](#screenreader)  
+3. [Week 2](#week-2)    
+    - [Use case](#use-case)    
+    - [Functional/reliable](#functionalreliable)   
+    - [Usable](#usable)    
+    - [Pleasurable](#pleasurable)  
+    - [Browser Technologies/features](#browser-technologiesfeatures)     
+    - [Feedback week 2 toevoegingen](#feedback-week-2-toevoegingen) 
+4. [Rangeinput slider](#rangeinput-slider)  
+5. [Kopieer knop](#kopieer-knop)    
+    - [Main events](#main-events)     
+        - [Eerste keuze (Async Clipboard API)](#eerste-keuze-async-clipboard-api)   
+        - [Tweede keuze (Document API + DataTransfer API)](#tweede-keuze-document-api--datatransfer-api)    
+        - [Benodigde API's](#benodigde-apis)    
+        - [Verificatie](#verificatie)   
+        - [Verwerking bevindingen](#verwerking-bevindingen)     
+        - [Document API: copy event](#document-api-copy-event)  
+        - [DataTransfer API: setData](#datatransfer-api-setdata)    
+        - [Best keuze](#best-keuze)     
+    - [Fall back](#fall-back)     
+    - [Hoe werkt het?](#hoe-werkt-het)    
+        - [Hoe maak ik de knop zichtbaar?](#hoe-maak-ik-de-knop-zichtbaar)     
+        - [Hoe wordt tekst gekopieerd?](#hoe-wordt-tekst-gekopieerd) 
+6. [Pleasurable](#pleasurable-1)
+7. [Alle lagen](#alle-lagen)
+8. [Conclusie/samenvatting](#conclusiesamenvatting)
+
+## How to install
 
 **Step 1:** Clone project:
 ```git
@@ -25,14 +70,12 @@ npm start
 ```
 
 **Step 5:** Navigate to: http://localhost:3000/
-</details>
 
-### Week 1
-
-<details>
-<summary>Zie bevindingen van week 1</summary>
+## Week 1
 
 Deze sectie gaat over toepassingen van Progressive enhancement. Er wordt getest via de Chrome browser via desktop
+
+### Beperkingen van client
 
 Ik ga deze web app testen op de volgende beperkingen:
 - Afbeeldingen uitzetten
@@ -151,7 +194,7 @@ Na het uitzetten van de localStorage worden er geen zoekresultaten en track resu
 
 **Fix: Dit was een bug dat de token altijd uit local storage gehaald moest worden. In plaats daarvan returned de getToken() method nu de token, of vanuit de API of localstorage.** 
 
-## Tests op verschillende browsers
+### Tests op verschillende browsers
 
 #### Microsoft edge (Desktop)
 In microsoft edge werkte alles prima, alleen is er een visuele beperking bij het verkleinen van het scherm. De gebruiker is in staat om buiten de content (naar rechts) te scrollen. Het lijkt wel alsof er geen maxmimale width aanwezig is.
@@ -223,7 +266,7 @@ In Internet Explorer werkte eigenlijk helemaal niks. Geen items werden ingeladen
 
 **Fix: Veel kan gefixed worden als het server-side gedaan zou worden.**
 
-## Screenreader
+### Screenreader
 Voor het uitlezen van de inhoud van de site gebruikt ik (Pericles: Text to Speech Screen Reader): https://chrome.google.com/webstore/detail/pericles-text-to-speech-s/oacindbdmlbdeidohafnfocfckkhjlbg
 
 De titel/omschrijving van de site werd opgelezen en all track resultaten. De zoek resultaten van de artiesten werden niet opgelezen.
@@ -237,14 +280,12 @@ De titel/omschrijving van de site werd opgelezen en all track resultaten. De zoe
 
 **Fix: Alles was wrapped in een a tag. Nu is dat niet meer het geval en wordt de text uitgelezen**
 
-</details>
-
-### Week 2
+## Week 2
 
 <details>
 <summary>Zie bevindingen van week 2</summary>
 
-#### Use case:
+### Use case
 **Ik wil een enquete kunnen invullen over de minor Web Development, met verschillende antwoord mogelijkheden. Als ik de enquete niet afkrijg, wil ik later weer verder gaan met waar ik ben gebleven.**
 
 In deze wireframe/wireflow zie je een schets van hoe de app er uit moet komen te zien.
@@ -258,7 +299,7 @@ In deze wireframe/wireflow zie je een schets van hoe de app er uit moet komen te
 
 De gebruiker kan vragen beantwoorden op verschillende manieren. Deze manieren zijn: meerkeuze vragen, radio-button vragen, vragen waar een antwoord uitgeschreven moet worden en een getal als antwoord. De gebruiker kan op de knoppen klikken om naar de vorige of volgende vraag te komen. Als de gebruiker een touchscreen heeft, dan kan er ook geswiped worden om tussen de vragen te wisselen. Ook is er de mogelijkheid om met pijltoetsjes heen en weer te gaan.
 
-#### Functional/reliable
+### Functional/reliable
 De core-funtionaliteit van de site is om voor gebruikers een enquete in te vullen. Dit wordt bereiekt doormiddel van verschillende input manieren. De gebruiker kan navigeren door de enquete om de andere vragen te kunnen zien. Tot slot kan de gebruiker de enquete inleveren en de antwoorden aanpassen.
 
 De site is betrouwbaar omdat de gebruiker zijn/haar antwoorden kan bekijken en veranderen. Daarnaast bewaart de site de antwoorden die de gebruiker ingevuld had. Hierdoor kan de gebruiker later de enquete verder invullen.
@@ -303,13 +344,13 @@ Voor het styling van de site gebruik ik zo veel mogelijk semantische HTML tags. 
 
 </details>
 
-#### Usable
+### Usable
 De website is eenvoudig en focused zich op één specifiek doel. Dit doel is het beantwoorden van een vragenlijst. Andere functies die helpen bij het bereiken van dit doel zijn: Het gemakkelijk inzien van alle (al beantwoorden) vragen die de enquete bevat, het kunnen beatnwoorden/aanpassen van een (gegeven) antwoord en het onthouden waar de gebruiker gebleven was met de vragenlijst.
 
-#### Pleasurable
+### Pleasurable
 De site geeft duidelijk weer welke vraag de gebruiker aan het antwoorden is en welk(e) antwoord(en) beatnwoord is/zijn. Door gebruik te maken van gebaren (zoals het kunnen swipen met een touchscreen of pijltoetsen op een toetsenbord), kan de gebruiker op een intuitieve en effevtieve manier zijn/haar doel bereiken. Door alleen relevante elementen/funcitonaliteiten te gebruiken is de site minimaal en voelt daarom proffesioneel aan. Er zijn subtiele animaties om de site prettiger aan te laten voelen maar niet dat het een afleidend effect heeft.
 
-## Browser Technologies/features
+### Browser Technologies/features
 De volgende features zijn van toepassing op de site:
 * Een animatie voor het springen van vraag naar vraag
     * **@keyframes** wordt gebruikt om op een gecontroleerde manier van een bepaalde styling state naar een andere over te gaan.
@@ -350,9 +391,8 @@ Tot nu toe heb ik alleen getest in Chrome, maar check ik wel de hele tijd canius
 
 Tot slot wou ik initieel veel verschillende features maken en die allemaal laten werken, alleen weet niet zeker of dit de meest slimme manier is om deze opdracht te maken. Dit wou ik eerst doen om een zo hoog mogelijk cijfer te halen, maar weet niet eens zeker of ik dat met deze methode kan bereiken. Mijn vraag is dus ook, wat moet ik doen/waar moet ik op letten om zo'n hoog mogelijk cijfer te halen? Ik hoorde dat ik een hoger cijfer krijg als ik kan uitleggen/aantonen hoe de drie versdchillende lagen differentiëren van elkaar. Hoe kan ik dit verwerken/aantonen in mijn product?
 
-</details>
+## Rangeinput slider
 
-### Mentions (WIP)
 Source:
 http://mobile-web-app.blogspot.com/2012/03/easy-display-value-for-of-slider-in.html
 
@@ -380,11 +420,9 @@ HTML code voor pijl: **&#x21FD;** en **&#x21FE;**
 
 </details>
 
-</details>
-
-# Kopieer knop
-## Main events
-### Eerste keuze (Async Clipboard API)
+## Kopieer knop
+### Main events
+#### Eerste keuze (Async Clipboard API)
 
 Voordelen:
 *	Tekst kan gekopieerd worden direct van een variabele waarde.
@@ -429,7 +467,7 @@ Om te dubbel checkte of dit werkte heb ik het getest op Safari - Desktop, IE11 e
 
 Dit zou betekenen dat het percentage tussen de 9.3% - 12.9% hoger komen te liggen. Het percentage zou dus liggen tussen de 81.1% en 84.7%.
 
-### Tweede keuze (Document API + DataTransfer API)
+#### Tweede keuze (Document API + DataTransfer API)
 
 Voordelen: 
 *	Tekst kan gekopieerd worden direct van een variabele waarde.
@@ -566,7 +604,7 @@ Ik moest wel een paar keer klikken op de knop om het te laten werken, maar deed 
 ![Image](./public/images/read-me/copy-support/verification-8.jpg)
 </details>
 
-#### verwerking bevindingen
+#### Verwerking bevindingen
 
 De code snippet die ik gebruikt heb voor het testen (https://stackoverflow.com/a/36380702/11119707) heb ik uitgevoerd op firefox versie 72 en IOS 13.3 op safari. Op allebei deze browsers/toestellen werkte deze code snippet.
 
@@ -602,7 +640,7 @@ Het perecentage van de hoeveel gebruikers die dit kunnen gebruiken was 73.5%. Aa
 
 Door deze bevindingen ligt het percentage nu minimaal 12.8% - 17.3% hoger. Het nieuwe percentage zou dus tussen de 86.3% en 90.8%. Dat is een stuk hoger dan 73.5%. 
 
-##### DataTransfer API: setData
+#### DataTransfer API: setData
 
 Wat betekent dat voor DataTransfer API: setData? Dit waren de resultaten volgens caniuse.com:
 
@@ -628,7 +666,7 @@ Aangezien de percentages van DataTransfer API: setData (83.7% en 88.9%) lager li
 
 Dus de Document API + DataTransfer API aanpak heeft een bereik tussen de 83.7% en 88.9%. Het heeft support voor alle browsers naast IE en Safari – Desktop.
 
-### Best keuze
+#### Best keuze
 
 Door de voorafgaande hoofdstukken kunnen we een conclusie trekken over de aanpakken: Document API + DataTransfer API en Async Clipboard API. Hier nog even een klein overzicht van de resultaten:
 
@@ -639,7 +677,7 @@ Door de voorafgaande hoofdstukken kunnen we een conclusie trekken over de aanpak
 
 Uit het onderzoek blijkt dat de Document API + DataTransfer API aanpak een groter bereik heeft en werkt op Safari. Dus op het eerste gezicht lijkt die aanpak beter te zijn. Toch werkt de Async Clipboard API aanpak asyncroon. Dit houdt in dat andere javascirpt code niet gehinderd/gepauzeert wordt zodra dit uitgevoerd wordt. Dit is wel het geval bij de Document API + DataTransfer API aanpak. Daarom ben ik tot de conclusie gekomen om de Async Clipboard API aanpak als eerste te gebruiken en de Document API + DataTransfer API aanpak te gebruiken als fallback hierop.
 
-## Fall back
+### Fall back
 
 document.execCommand('copy'). (Covarage: 94%)
 
@@ -663,9 +701,9 @@ Nadelen:
 ![Image](./public/images/read-me/copy-support/popup-apple.png)
 </details>
 
-## Hoe werkt het?
+### Hoe werkt het?
 
-### Hoe maak ik de knop zichtbaar?
+#### Hoe maak ik de knop zichtbaar?
 Knop verberg ik origineel met `style="visibility:hidden`:
 
 ```html
@@ -685,7 +723,7 @@ function init() {
 ```
 Opacity was een alternatieve optie die beter zou zijn voor performance (bron: https://www.sitepoint.com/hide-elements-in-css/). Alleen de knop is nog wel klikbaar als `opacity: 0` is. Een andere optie was om `dispaly:hidden` te doen, alleen browser suppport was daar niet zo goed voor. Uiteindelijk heb ik `visibility:hidden` gekozen omdat het een excellente browser support heeft en redelijke goede performance score.
 
-### Hoe wordt tekst gekopieerd?
+#### Hoe wordt tekst gekopieerd?
 
 in de `init()` zet ik de text variabele van de pin. De pin is het laatste deel van de url, vandaar deze one-liner:
 ```javascript
@@ -890,7 +928,7 @@ Op IE wordt er soms een pop-up getoond om toestemming te vragen aan de gebruiker
 ![Image](./public/images/read-me/copy-support/popup-apple.png)
 </details>
 
-# Pleasurable
+## Pleasurable
 
 Ik gebruik `calc(1rem + 19px);` hier om uit te rekenen hoe breed de age input moet zijn.
 
@@ -1027,7 +1065,7 @@ Vervolgens roept het de volgende keyframe aan (bron: https://stackoverflow.com/q
 }
 ```
 
-# Alle lagen
+## Alle lagen
 
 <details>
 <summary>Alleen laag 1</summary>
@@ -1046,3 +1084,5 @@ Vervolgens roept het de volgende keyframe aan (bron: https://stackoverflow.com/q
 
 ![Image](./public/images/read-me/Pleasurable/laag-3.png)
 </details>
+
+## Conclusie/samenvatting
