@@ -1064,19 +1064,19 @@ Vervolgens roept het de volgende keyframe aan (bron: https://stackoverflow.com/q
 ## Alle lagen
 
 <details>
-<summary>Alleen laag 1</summary>
+<summary>Laag 1 - Alleen Functional/reliable (zonder CSS + JS)</summary>
 
 ![Image](./public/images/read-me/Pleasurable/laag-1.png)
 </details>
 
 <details>
-<summary>Laag 1 + 2</summary>
+<summary>Laag 1+2 - Functional/reliable, Usable (zonder JS)</summary>
 
 ![Image](./public/images/read-me/Pleasurable/laag-2.png)
 </details>
 
 <details>
-<summary>Alle lagen</summary>
+<summary>Laag 1+2+3 - Functional/reliable, Usable, Pleasurable </summary>
 
 ![Image](./public/images/read-me/Pleasurable/laag-3.png)
 </details>
@@ -1098,13 +1098,18 @@ Bij [Kopieer knop](#kopieer-knop) behandel ik een ingewikkelde feature die in ve
 
 > Student kan uitleggen wat Progressive enhancement is.
 
-Ik begon met het opzetten van de HTMl en zo veel mogelijk gebruik te maken van semantische HTML (forms, fieldsets bijvoorbeeld). 
+Ik begon met het opzetten van de HTMl en zo veel mogelijk gebruik te maken van semantische HTML (forms, fieldsets bijvoorbeeld). Door forms te gebruiken en alle logica vanuit de server te laten doen, werkt de core functionaliteit. Na dat volledig werkte, zette ik de Usable laag op (CSS), en tot slot de Pleasurable laag (JS). Een voorbeeld van deze laag is het kunnen kopiëren van de pin door op een knop te klikken. Dit maakt de ervaring een stuk gemakkelijker en prettiger voor de eindgebruiker.
 
-[Alle lagen](#alle-lagen) 
+In [Alle lagen](#alle-lagen) kan je het uiterlijk van de site zien met verschillende lagen actief/inactief. Meer info over de lagen in [Functional/reliable](#functionalreliable), [Usable](#usable), [Pleasurable 1](#pleasurable) en [Pleasurable 2](#pleasurable-1).
 
 > Student laat zien hoe Progressive Enhancement toe te passen in Web Development
 
+Zie: [Functional/reliable](#functionalreliable), [Usable](#usable), [Pleasurable 1](#pleasurable) en [Pleasurable 2](#pleasurable-1).
+
 > Student kan uitleggen wat Feature detection is
+
+In [Dit hoofdstuk](#pleasurable-1) bespreek ik onder andere hoe ik gebruik maak van `@supports` en `@media` om te detecteren of een client's browser bepaalde features wel ondersteund.
 
 > Student laat zien hoe Feature Detection kan worden toegepast in Web Development
  
+Zie [Dit hoofdstuk](#pleasurable-1)
