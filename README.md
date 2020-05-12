@@ -1090,6 +1090,10 @@ Zie [Use case](#use-case) voor de use case, en [Functional/reliable](#functional
 
 In [Tests op verschillende browsers](#tests-op-verschillende-browsers) voer ik tests uit op Edge, firefox, chrome, safari en IE via Desktop, android mobiel, iPhone en iPad om te controleren of het overal visueel er goed uit ziet en bruikbaar is. In het hoofdstuk [Pleasurable](#pleasurable) behandel ik verschillende punten hoe ik de User Experience goed optimaal maken.
 
+Hier is het resultaat van [contrast-ratio.com](https://contrast-ratio.com/), waarin te zien is dat de high contrast score het AAA level behaald:
+![Image](./public/images/read-me/contrast-website.jpg)
+
+
 > Readme: In de beschrijving van het project staat een probleemdefinitie, hoe het probleem is opgelost en een uitleg van de code.
 
 In [Beperkingen van client](#beperkingen-van-client) ga ik over verschillende problemen die voorkomen en hoe die opgelost zijn inclusief uitleg. Daarbij is er met een afbeelding en code uitgelegd wat het probleem is en hoe het opgelost is.
