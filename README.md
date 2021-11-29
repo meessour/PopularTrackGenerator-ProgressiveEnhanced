@@ -54,7 +54,7 @@ Dit is een een progressive enhanced versie van de Popular Track Generator
 
 **Step 1:** Clone project:
 ```git
-git clone https://github.com/meessour/popular-track-generator-progressive-enhanced.git
+git clone https://github.com/meessour/PopularTrackGenerator-ProgressiveEnhanced.git
 ```
 
 **Step 2:** CD to path where project is cloned to:
