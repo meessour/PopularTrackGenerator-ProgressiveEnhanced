@@ -48,9 +48,7 @@
 9. [Conclusie/samenvatting](#conclusiesamenvatting)
 
 ## Intro
-Dit is een een progressive enhanced versie van de Popular Track Generator 
-[Popular Track Generator](https://github.com/meessour/popular-track-generator)  
-## How to install
+In deze repo worden progressive enhancements van andere projecten uitgevoerd
 
 **Step 1:** Clone project:
 ```git
