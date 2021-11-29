@@ -2,9 +2,9 @@
 [Live Demo](https://web-dev-enquete.herokuapp.com/)
 
 ## Table of contents
-
-1. [How to install](#How-to-install)     
-2. [Week 1](#week-1)     
+1. [Intro](#intro)
+2. [How to install](#How-to-install)     
+3. [Week 1](#week-1)     
     - [Beperkingen van client](#beperkingen-van-client)   
         - [Afbeeldingen uitzetten](#afbeeldingen-uitzetten)           
         - [Font uitzetten](#font-uitzetten)    
@@ -21,15 +21,15 @@
         - [Firefox (Mobile)](#firefox-mobile)    
         - [Internet Explorer (Desktop)](#internet-explorer-desktop)   
     - [Screenreader](#screenreader)  
-3. [Week 2](#week-2)    
+4. [Week 2](#week-2)    
     - [Use case](#use-case)    
     - [Functional/reliable](#functionalreliable)   
     - [Usable](#usable)    
     - [Pleasurable](#pleasurable)  
     - [Browser Technologies/features](#browser-technologiesfeatures)     
     - [Feedback week 2 toevoegingen](#feedback-week-2-toevoegingen) 
-4. [Rangeinput slider](#rangeinput-slider)  
-5. [Kopieer knop](#kopieer-knop)    
+5. [Rangeinput slider](#rangeinput-slider)  
+6. [Kopieer knop](#kopieer-knop)    
     - [Main events](#main-events)     
         - [Eerste keuze (Async Clipboard API)](#eerste-keuze-async-clipboard-api)   
         - [Tweede keuze (Document API + DataTransfer API)](#tweede-keuze-document-api--datatransfer-api)    
@@ -43,15 +43,18 @@
     - [Hoe werkt het?](#hoe-werkt-het)    
         - [Hoe maak ik de knop zichtbaar?](#hoe-maak-ik-de-knop-zichtbaar)     
         - [Hoe wordt tekst gekopieerd?](#hoe-wordt-tekst-gekopieerd) 
-6. [Pleasurable](#pleasurable-1)
-7. [Alle lagen](#alle-lagen)
-8. [Conclusie/samenvatting](#conclusiesamenvatting)
+7. [Pleasurable](#pleasurable-1)
+8. [Alle lagen](#alle-lagen)
+9. [Conclusie/samenvatting](#conclusiesamenvatting)
 
+## Intro
+Dit is een een progressive enhanced versie van de Popular Track Generator 
+[Popular Track Generator](https://github.com/meessour/popular-track-generator)  
 ## How to install
 
 **Step 1:** Clone project:
 ```git
-git clone https://github.com/meessour/browser-technologies-1920.git
+git clone https://github.com/meessour/popular-track-generator-progressive-enhanced.git
 ```
 
 **Step 2:** CD to path where project is cloned to:
